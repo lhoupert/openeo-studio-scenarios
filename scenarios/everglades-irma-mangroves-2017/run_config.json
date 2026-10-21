@@ -1,0 +1,1 @@
+{"collectionId": "landsat-c2-l2", "bands": ["nir08", "red"], "time": ["2019-01-01T00:00:00Z", "2019-03-31T23:59:59Z"], "boundingBox": {"west": -81.3, "south": 25.1, "east": -80.8, "north": 25.6}, "cloudCover": 100}
