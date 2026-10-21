@@ -3,11 +3,11 @@ Exp - NW Med recent winters 2019-2026 vs 2013 and 2018 MODIS patch
 
 In winters with deep convection, cold northerly winds mix the Gulf of Lion from the surface down to 1000 m or more. The mixing carries the surface algae (phytoplankton) down into the dark, so from space the mixed area looks like a patch of very low chlorophyll. Since 2014 the winter mixing has mostly stayed much shallower.
 
-One satellite image per winter (the clearest view of 8 days), taken when the patch was largest, or the clearest week when there was none: 2013 and 2018 for reference, then 2019-2026, from the strongest winter to the weakest. Each label gives the deepest mixing estimated from the LION mooring, in the middle of the gulf. The map opens on 2013; open one layer at a time.
+One satellite image per winter (8 days combined, little cloud), near the time the patch was largest, or the clearest week when there was none: 2013 and 2018 for reference, then 2019-2026, roughly from the strongest winter to the weakest. Each label gives the deepest mixing estimated from the LION mooring, in the middle of the gulf. The map opens on 2013; open one layer at a time.
 
-What to look for: the patch shrinks with the mixing depth, from a large patch in 2013 to a smaller one in 2018, small ones in the moderate winters 2019-2023, and almost nothing in 2024-2026 and 2020.
+What to look for: a large patch in 2013, a smaller one in 2018, patches of varying size in the moderate winters (2019, 2021-2023), and almost none around the mooring in 2020 and 2024-2026. The patch shows where the sea mixed, not how deep.
 
-How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); green and yellow = more; orange and red = much more (near the coast, also murky river water). Grey = cloud or land. The colours are an uncalibrated index from the colour of the sea: compare winters with each other, not with measured chlorophyll.
+How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); lighter blue, green and yellow = more; orange and red = much more (near the coast, also murky river water). Grey = no reliable value: cloud, land, and some specks inside the patch. The colours are an uncalibrated index from the colour of the sea: compare winters with each other, not with measured chlorophyll.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/nw-med-deep-winters/recent-winters/README.md
 
@@ -99,7 +99,7 @@ def chl_layer(start, name):
     add_graph_to_map(colored.save_result("PNG"), name)
 
 
-LEGEND = " (purple = least chlorophyll, red = most; grey = cloud or land)"
+LEGEND = " (purple = least chlorophyll, red = most; grey = no reliable value: cloud, land)"
 
 OPEN_ON = 0
 LAYERS = [
@@ -109,7 +109,7 @@ LAYERS = [
     ("2023-02-10", "2023 (moderate, ~450-850 m), 10-17 Feb"),
     ("2022-02-26", "2022 (moderate, ~350-700 m), 26 Feb-5 Mar"),
     ("2021-01-25", "2021 (moderate, ~650-820 m), 25 Jan-1 Feb: small patch"),
-    ("2026-03-06", "2026 (weak, ~450-600 m), 6-13 Mar: hardly any patch"),
+    ("2026-03-06", "2026 (weak, ~450-600 m), 6-13 Mar: no patch at the mooring (the purple streaks further south are likely image artefacts)"),
     ("2025-02-02", "2025 (weak, ~400-500 m), 2-9 Feb: no patch"),
     ("2024-02-10", "2024 (no convection, <= 300 m), 10-17 Feb: no patch"),
     ("2020-02-18", "2020 (no convection, <= 300 m), 18-25 Feb: no patch"),

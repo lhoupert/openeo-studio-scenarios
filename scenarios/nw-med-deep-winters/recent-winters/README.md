@@ -15,9 +15,9 @@ from production tiles at tile zoom 7; white circle = LION mooring; grey = cloud 
 Since 2014 the winter mixing in the Gulf of Lion has mostly been much shallower than in 2009-2013: Coppola et
 al. (2026, p. 5314) "since 2014 winter mixing has been considerably weaker (300–500 m on average, except in
 2015 and 2018 when mixing reached ∼ 1500 m)". Margirier et al. (2020) link this decline of deep convection to
-an abrupt warming and salinification of the intermediate waters. This project shows one MODIS-Aqua 8-day composite per
-winter, at that winter's largest low-chlorophyll extent (or its clearest week when there was no patch): 2013
-and 2018 for reference, then 2019-2026, ordered from the strongest to the weakest winter.
+an abrupt warming and salinification of the intermediate waters. This project shows one MODIS-Aqua 8-day
+composite per winter, near that winter's largest low-chlorophyll extent (or its clearest week when there was no
+patch): 2013 and 2018 for reference, then 2019-2026, roughly from the strongest to the weakest winter.
 
 **Classes and depths.** No depths are published for 2019-2026, so the classes use our analysis of the LION
 mooring (December-March maximum; range over four mixed-layer criteria, see the scenario README) together
@@ -25,14 +25,19 @@ with the low-chlorophyll area in 3-7E 41.3-43.2N:
 - mixed to the seafloor: 2013;
 - deep: 2018;
 - moderate (about 350-1090 m): 2019, 2021, 2022, 2023, each with a low-chlorophyll patch;
-- weak (about 400-600 m, the 2014-2017 range): 2025, 2026, no patch or hardly any;
+- weak (about 400-600 m, within the 2014-2017 range of 400-700 m, Margirier et al. 2020): 2025, 2026, no patch
+  or hardly any;
 - none (300 m or less): 2024, 2020.
+
+By depth alone the moderate and weak classes overlap (2022: 350-700 m); the patch decides. Within a class the
+order is approximate: LION depth and patch area do not rank these winters the same way (2021 mixed deeper than
+2022 but left a smaller patch).
 
 **Which composite.** The composite with the largest low-chlorophyll area of January-March in 3-7E 41.3-43.2N
 when it is clear enough (2013, 2018, 2022, 2021, 2026); for 2019, 2-9 Feb (99 % clear) instead of 25 Jan-1 Feb
 (80 %, speckled core); for 2023, 10-17 Feb (99 % clear, 5 % of the core flagged by QA) instead of 26 Feb-5 Mar
 (88 %, 24 % flagged); for the winters without a patch, the clearest composite near the LION maximum (for 2024,
-10-17 Feb rather than 26 Feb-5 Mar, whose ~2,400 km² low-chlorophyll area lies offshore, at ~41.6N 6.0E).
+10-17 Feb rather than 26 Feb-4 Mar, whose ~2,400 km² low-chlorophyll area lies offshore, at ~41.6N 6.0E).
 
 ## The ten layers
 
@@ -48,20 +53,27 @@ analysis otherwise (lowest-highest of four criteria). Areas in km² (< 0.25 / < 
 | 4 | 2023 | moderate | 450-850 m | 10-17 Feb | A patch on LION | 9,200 / 170 | 99 % |
 | 5 | 2022 | moderate | 350-700 m | 26 Feb-5 Mar | A patch with core specks | 12,400 / 150 | 100 % |
 | 6 | 2021 | moderate | 650-824 m | 25 Jan-1 Feb | A small patch | 3,600 / 370 | 95 % |
-| 7 | 2026 | weak | 450-600 m | 6-13 Mar | Only specks; the bloom has already started | 1,900 / 580 | 87 % |
+| 7 | 2026 | weak | 450-600 m | 6-13 Mar | Only specks around LION; the striped purple and red bands south and west of it are likely compositing or atmospheric-correction artefacts, not a mixed patch | 1,900 / 580 | 87 % |
 | 8 | 2025 | weak | 400-502 m | 2-9 Feb | No patch | 120 / 0 | 100 % |
 | 9 | 2024 | none | 200-300 m | 10-17 Feb | No patch | 540 / 4 | 99 % |
 | 10 | 2020 | none | 250-300 m | 18-25 Feb | No patch | 30 / 0 | 100 % |
 
-The Studio labels round these ranges (for example "~2300 m", "1500-1750 m"). For 2021 the two sensors at
-194 m and 472 m are flagged bad (quality flag 3) all winter and masked. Areas depend on the grid and the method
+The Studio labels round these ranges (for example "~2300 m", "1500-1750 m"). 2018: 1497-1753 m at LION; the
+next sensor down is at about 2000 m, so the mixing may have gone deeper, and profiles elsewhere showed at
+least 1800-1900 m (Margirier et al. 2020; Fourrier et al. 2022). For 2021 the sensors at 194 m and 472 m are
+flagged "probably bad" (quality flag 3) all winter and masked; without that mask, the 0.02 and 0.03 °C
+criteria keep 2021 above 500 m in December-March and only the 0.05 °C criterion reaches 824 m, so read
+2021's depth with care. Areas depend on the grid and the method
 (up to about 20 % for one year, more between years), so they are not written into the layer labels.
 
 ## Read with care
 
-- The patch shrinks with the mixing depth, but a patch alone does not prove mixing below 1000 m: 2019 has a
-  patch as large as 2009-2011 with mixing to 500-1090 m (see the scenario README).
-- 2023 is ordered before 2022 because its mixing was deeper at LION, although its patch is smaller.
+- The patch broadly shrinks in weaker winters, but not in step with the LION depth (2021 mixed deeper than
+  2022 and left a smaller patch), and the classes partly use the patch area. A patch alone does not prove
+  mixing below 1000 m: 2019 has a patch about three-quarters the size of 2009-2011 with mixing mostly to
+  500-850 m (see the scenario README).
+- The 2026 layer shows more dark purple than the moderate winters, in striped bands south and west of the
+  gulf: these are likely image artefacts, not a mixed patch (around LION there are only specks).
 - The 2025 composite is one of the items (5 Mar 2024-10 Jun 2025) with an empty `platform` property on
   Planetary Computer; selecting Aqua by item id is not affected, and the 2025 layer matches a local render pixel
   for pixel.

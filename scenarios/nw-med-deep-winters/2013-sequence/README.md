@@ -14,8 +14,10 @@ transparent. Screenshot of production, 21 Oct 2026.*
 
 2013 is the reference winter of Houpert et al. (2016): the mixed layer reached the bottom (about 2300 m) at
 the LION mooring on 13 February, the main mixing ended on 28 February, and a second mixing event on 13-17 March
-reached the bottom again and ended on 21 March (Table 4). Our reading of the mooring record (see the scenario
-README) puts the mixed layer below 1000 m from 27 January to 23 March. The mixed patch reached its largest
+(to 1800 m at LION, Table 4; to the bottom again according to Testor et al. 2018, p. 1757) ended on 21 March.
+In our own (unpublished) reading of the mooring record, the mixed layer first went below 1000 m on 27 January
+and reached that depth on and off until 23 March, second event included; the Table 4 dates give the end of
+the mixing. The mixed patch reached its largest
 extent, 28,000 ± 3,000 km² with a mixed layer deeper than 1000 m, in late February (Testor et al. 2018).
 The bloom started at the periphery of the patch around 2 March ± 4 days, in its centre around 3 April ± 4 days,
 peaked on 7-9 April, and the sea returned to summer oligotrophy in May (Mayot et al. 2017).
@@ -31,14 +33,14 @@ ocean in 2.5-8.5E 40.5-44N that the MODIS state QA flags as clear.
 | 1 | 25 Jan-1 Feb | The patch appears as the mixing deepens (below 1000 m at LION from 27 Jan). **Opens here.** | 97 % |
 | 2 | 2-9 Feb | The patch grows. | 95 % |
 | 3 | 10-17 Feb | The largest dark-purple (< 0.15) core of the winter. | 93 % |
-| 4 | 18-25 Feb | An elongated south-west to north-east patch: the week of Houpert et al. (2016, Fig. 8g; "18-25 Feb. 2013", p. 8154). Proxy areas 39,400 / 3,700 km² (< 0.25 / < 0.15) against 56,351 / 23,583 km² in their Table 4. | 98 % |
+| 4 | 18-25 Feb | An elongated south-west to north-east patch: the week mapped by Houpert et al. (2016, Fig. 8g; "18-25 Feb. 2013", p. 8154). Proxy areas 39,400 / 3,700 km² (< 0.25 / < 0.15) against 56,351 / 23,583 km² in their Table 4. | 98 % |
 | 5 | 26 Feb-5 Mar | The widest < 0.25 envelope of the winter; the main mixing ends on 28 Feb. | 93 % |
 | 6 | 6-13 Mar | Between the two mixing events: the patch shrinks and a ring of bloom grows at its edges. | 92 % |
 | 7 | 14-21 Mar | The second mixing event (13-17 Mar) re-forms the patch with a dark-purple core. | 99 % |
 | 8 | 22-29 Mar | The mixing is over; the bloom grows around the patch. | 92 % |
-| 9 | 30 Mar-6 Apr | The bloom reaches the centre and fills the basin. | 97 % |
-| 10 | 7-14 Apr | The bloom at its peak: proxy above 2 on 44 % of a 0.25° box around LION. | 99 % |
-| 11 | 1-8 May | The bloom fades; low values come back offshore. | 95 % |
+| 9 | 30 Mar-6 Apr | The bloom reaches the centre; no low-chlorophyll water is left. | 97 % |
+| 10 | 7-14 Apr | The bloom at its peak: proxy above 2 on 44 % of the clear water around LION (2.8-7.0E 41.0-44.1N). | 99 % |
+| 11 | 1-8 May | The bloom fades; low values come back offshore: this blue is nutrient-poor summer water, not a mixed patch. | 95 % |
 
 **The proxy against the published bloom dates:** edge onset on 6-13 Mar (published 2 Mar ± 4 days) and
 maximum on 7-14 Apr (published 7-9 Apr).

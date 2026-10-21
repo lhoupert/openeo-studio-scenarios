@@ -9,16 +9,16 @@ Winter 2013 was one of the strongest on record: the sea mixed down to the seaflo
 1. 25 Jan-1 Feb: the patch appears as the mixing deepens.
 2. 2-9 Feb: the patch grows.
 3. 10-17 Feb: the largest dark-purple core.
-4. 18-25 Feb: the week of the reference study (Houpert et al. 2016).
+4. 18-25 Feb: the week mapped in the reference study (Houpert et al. 2016).
 5. 26 Feb-5 Mar: the patch at its widest; the main mixing ends on 28 Feb.
 6. 6-13 Mar: the patch shrinks and the bloom starts at its edges.
 7. 14-21 Mar: a second mixing event (13-17 Mar) brings the patch back.
 8. 22-29 Mar: the mixing is over; the bloom grows around the patch.
 9. 30 Mar-6 Apr: the bloom reaches the centre of the patch.
 10. 7-14 Apr: the bloom at its peak.
-11. 1-8 May: the bloom fades.
+11. 1-8 May: the bloom fades (the blue offshore is low-chlorophyll summer water, not the mixed patch).
 
-How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); green and yellow = more; orange and red = the bloom (near the coast, also murky river water). Grey = cloud; land is transparent. The colours come from the colour of the sea and are an uncalibrated index: compare weeks and winters with each other, not with measured chlorophyll.
+How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); lighter blue, green and yellow = more; orange and red = the bloom (near the coast, also murky river water). Grey = no clear view of the sea: mostly cloud, but also specks inside the patch and some coastal lagoons; land is transparent. The colours come from the colour of the sea and are an uncalibrated index: compare weeks and winters with each other, not with measured chlorophyll.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/nw-med-deep-winters/2013-sequence/README.md
 
@@ -132,21 +132,21 @@ def chl_layer(start, name):
     add_graph_to_map(colored.save_result("PNG"), name)
 
 
-LEGEND = " (purple = least chlorophyll, red = most; grey = cloud)"
+LEGEND = " (purple = least chlorophyll, red = most; grey = no clear view, mostly cloud)"
 
 OPEN_ON = 0
 LAYERS = [
     ("2013-01-25", "25 Jan-1 Feb 2013: the patch appears as the mixing deepens"),
     ("2013-02-02", "2-9 Feb 2013: the patch grows"),
     ("2013-02-10", "10-17 Feb 2013: the largest dark-purple core"),
-    ("2013-02-18", "18-25 Feb 2013: the week of the reference study (Houpert et al. 2016)"),
+    ("2013-02-18", "18-25 Feb 2013: the week mapped in the reference study (Houpert et al. 2016)"),
     ("2013-02-26", "26 Feb-5 Mar 2013: the patch at its widest; the main mixing ends on 28 Feb"),
     ("2013-03-06", "6-13 Mar 2013: the patch shrinks and the bloom starts at its edges"),
     ("2013-03-14", "14-21 Mar 2013: a second mixing event (13-17 Mar) brings the patch back"),
     ("2013-03-22", "22-29 Mar 2013: the mixing is over; the bloom grows around the patch"),
     ("2013-03-30", "30 Mar-6 Apr 2013: the bloom reaches the centre of the patch"),
     ("2013-04-07", "7-14 Apr 2013: the bloom at its peak"),
-    ("2013-05-01", "1-8 May 2013: the bloom fades"),
+    ("2013-05-01", "1-8 May 2013: the bloom fades; the blue offshore is summer water, not the patch"),
 ]
 for i, (start, name) in enumerate(LAYERS):
     chl_layer(start, name + (LEGEND if i == OPEN_ON else ""))
