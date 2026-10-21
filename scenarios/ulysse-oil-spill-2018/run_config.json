@@ -1,1 +1,1 @@
-{"collectionId": "sentinel-1-rtc", "bands": ["vv"], "time": ["2018-10-09T17:09:00Z", "2018-10-09T17:19:00Z"], "boundingBox": {"west": 6.4, "south": 42.7, "east": 9.7, "north": 43.9}, "cloudCover": 100}
+{"collectionId": "sentinel-1-rtc", "bands": ["vv"], "time": ["2018-10-08T17:20:00Z", "2018-10-08T17:24:00Z"], "boundingBox": {"west": 6.4, "south": 42.7, "east": 9.7, "north": 43.9}, "cloudCover": 100}

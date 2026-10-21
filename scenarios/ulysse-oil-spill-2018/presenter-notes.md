@@ -9,40 +9,36 @@ ticked layers blend).
 
 **Hook** (map as it opens, Corsica and the Ligurian Sea): "On 7 Oct 2018, just after 7 am, the ferry Ulysse
 rammed the container ship CSL Virginia, anchored about 28 km north of Cap Corse. Fuel poured into the sea.
-Can satellites follow the slick?"
+What can a radar satellite see of it?"
 
-1. **9 Oct, radar** (opening layer)
-   - **Show:** the bright dot north of Cap Corse, which is the two ships, still locked together. Then trace
-     the dark line running west-north-west for about 60 km and curling north at its end.
-   - **Say:** "Radar measures how rough the sea is. Oil calms the small waves, so a slick shows up dark.
-     Radar works through cloud and at night."
-   - **Then point to** the big diffuse dark patch south-east of the ships: "Not every dark patch is oil.
-     That one is probably calm water with little wind: its edges are soft, the slick's are sharp."
-2. **9 Oct, optical, 7 hours earlier**
-   - **Show:** zoom right in on the ships, to map zoom 11 or more; the streak is invisible when zoomed out.
-     A dashed bright streak leaves the ships along the same path.
-   - **Say:** "A second satellite, using sunlight rather than radar, sees the same slick. Two independent
-     sensors agree."
-3. **13 Oct, automatic detection**
-   - **Show:** zoom back out and look north-west of the ships, around 43.6N 8.8E. Orange marks the drifting
-     fragments.
-   - **Say:** "An algorithm flags patches much darker than their surroundings. It finds the fragments, but
-     also flags the coasts, where land shelters the sea from the wind. Automation sorts the candidates; a
-     person still has to judge them."
-4. **19 Oct, off the Var**
-   - **Show:** pan west to the sea off Saint-Tropez. Sharp dark fragments lie offshore, up to about 75 km
-     out.
-   - **Say:** "Oil had been reaching the Var beaches since 16 Oct. Some of these may be more of it, but in
-     light wind radar alone can't tell oil from natural films."
+1. **8 Oct, evening** (opening layer)
+   - **Show:** the white dot north of Cap Corse, which is the two ships, still locked together. Then trace the
+     dark slick leaving them towards the north-west, about 35 km long.
+   - **Say:** "Radar measures how rough the sea is. Oil calms the small waves, so a slick shows up dark. This
+     image was taken after sunset: radar needs no daylight and sees through cloud."
+2. **9 Oct, evening**
+   - **Show:** the same slick 24 hours later, now 50-60 km long and curling north at its end.
+   - **Then point to** the big diffuse dark patch south-east of the ships: "Not every dark patch is oil. That
+     one is calm water with little wind: its edges are soft, the slick's are sharp. All three images use the
+     same grey scale, so a brighter sea means more wind."
+3. **13 Oct**
+   - **Show:** zoom out and look 60-80 km north-west of the ships, around 43.6N 8.8E: sharp-edged dark
+     fragments, starting with the compact patch on the south-west side.
+   - **Say:** "Six days on, these are possibly pieces of the drifting oil, inside the corridor the forecasters
+     predicted, but nobody reported an oil position that day, so we cannot confirm it. Dark areas along the
+     coasts are sea sheltered from the wind: radar cannot tell whether oil is in there."
 
-**Take-home:** radar sees through cloud and at night, and followed the spill for 10 days whenever there was
-enough wind; one optical image confirmed the slick near the ships; automatic detection helps but needs
-checking.
+**Take-home:** radar saw the slick clearly on 8 and 9 Oct and glimpsed possible fragments on 13 Oct;
+aircraft did the daily tracking. From 14 Oct the oil had broken into tarballs and the wind had risen, and
+radar lost it; two days later oil reached the Var beaches. Satellites give the big picture; people in the air
+and on the water confirm it.
 
 ## Practical tips
 
+- **Before the talk:** tick each layer once at the opening view in the tab you will present from (first views
+  can take up to about 10 s; tiles are then cached for an hour). Don't reload the page.
+- **Window width:** on a narrow window Studio opens one zoom step further out, where the 9 Oct slick is faint;
+  widen the window or zoom in one step.
 - **Zoom:** don't zoom out too far. Studio shows nothing below about map zoom 4.5.
-- **Load times:** zoomed-out radar layers can take up to about 40 s the first time. Mention it, or open each
-  layer once before presenting.
 - **Old tabs:** if the project looks out of date, open it in a new tab, and don't Save from the old one (it
   would put the old version back).

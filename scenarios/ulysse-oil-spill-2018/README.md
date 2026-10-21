@@ -1,7 +1,7 @@
 # Ulysse / CSL Virginia oil spill, October 2018
 
 Studio project: <https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar>
-(title "Exp - Ulysse CSL Virginia oil spill Oct 2018 Sentinel-1 radar").
+(title "Exp - Ulysse CSL Virginia oil spill Oct 2018 Sentinel-1 radar"; opens on layer 1).
 Files: `studio_script.py` (the code pasted in Studio), `seed.js` (seeds the Studio editor with it),
 `run_config.json` (the editor settings used for local tests).
 
@@ -10,163 +10,181 @@ Files: `studio_script.py` (the code pasted in Studio), `seed.js` (seeds the Stud
 
 ## The event
 
-On 7 Oct 2018 at 07:02 local time (05:02 UTC) the ro-ro ferry *Ulysse* struck the container ship
-*CSL Virginia*, at anchor about 28 km north of Cap Corse (BEAmer 2019). Bunker fuel leaked from the
-*CSL Virginia*'s hull. The two ships stayed locked together until the evening of 11 Oct; the
-*CSL Virginia* then stayed at the collision site until it left on 23 Oct. The fuel drifted north-west,
-broke into strings and patches, and was carried south-west by the Ligurian Current; the first oil
-beached near Saint-Tropez on 16 Oct (Pampelonne beach, Ramatuelle; Cedre).
+On 7 Oct 2018 at 05:02 UTC (07:02 local time) the ro-ro ferry *Ulysse* struck the container ship
+*CSL Virginia*, at anchor about 28 km north of Cap Corse (43.248N 9.478E; BEAmer 2019). Bunker fuel leaked
+from the *CSL Virginia*'s hull. The two ships stayed locked together until the evening of 11 Oct.
 
-![The four layers at map zoom 8](figures/layers_zoom8.png)
+What the official and satellite records say, day by day (times UTC):
+- **8 Oct.** At dawn a broken ribbon more than 20 km long (French Navy aircraft; ESA about 20 km on the
+  05:28 radar image; EMSA 22 km). In the evening, on the 17:21 radar image, "about 35 km" (ESA).
+- **9 Oct.** In the morning, aircraft counted 25 km of oil in 7 sections. On the 17:14 radar image ESA
+  measured about 60 km; EMSA's CleanSeaNet brochure gives 50 km "at its longest point". The large dark patch
+  south-east of the ships on that image is calm water (ESA).
+- **10-12 Oct.** Aircraft followed strips of about 25 km drifting north-west, then further north towards the
+  Ligurian coast. No Sentinel-1 image covered the slick on 10-11 Oct.
+- **13 Oct.** The Préfecture maritime reported that the oil moved north and then south-west with the
+  Ligurian Current, breaking into fragments and tarballs; it gave no position.
+- **From 14 Oct.** No more significant thick patches at sea, only tarballs; the east wind strengthened. There
+  was no Sentinel-1 pass at all on 16-17 Oct.
+- **From 16 Oct.** Oil reached the Var beaches, first at Pampelonne (Ramatuelle). Cedre and Météo-France link
+  it to this spill; at the time the Var prefecture could not establish the origin with certainty, and no
+  published chemical match was found.
 
-*The four layers at map zoom 8, rendered on a local copy of the backend (identical to production).*
+![The three layers at tile zoom 8](figures/layers_z8.png)
+
+*The three layers at tile zoom 8 (about Studio map zoom 7), rendered from the Studio code on a local copy of
+the backend; light grey = land (transparent in Studio) or no data.*
 
 ## How to read radar images of the sea
 
-Sentinel-1 is a radar satellite: it sends microwave pulses and measures how much comes back. The
-small (centimetre) waves that wind raises on the sea scatter part of the pulse back, so open sea looks
-grey. Oil damps those small waves, so the sea under a slick is smoother and sends less back: a slick is
-a **dark patch with sharp edges**. Ships and platforms are **bright dots**.
+Sentinel-1 is a radar satellite: it sends microwave pulses and measures how much comes back. The small
+(centimetre) waves that wind raises on the sea scatter part of the pulse back, so open sea looks grey. Oil
+damps those small waves, so the sea under a slick is smoother and sends less back: a slick is a **dark patch
+with sharp edges**. Ships are **bright dots**. Radar works through cloud and at night: layers 1 and 2 were
+taken 23-28 minutes after sunset.
 
-This only works at moderate wind, from about 1.5-3 m/s up to 6-10 m/s (Fingas & Brown 2018; Topouzelis
-2008). Several
-things look like oil (the "look-alikes"; Topouzelis 2008):
-
+This only works at moderate wind, from about 1.5-3 m/s up to 6-10 m/s (Fingas & Brown 2018; Topouzelis 2008).
+Several things look like oil (the "look-alikes"; Topouzelis 2008):
 - calm water where there is little wind (broad, diffuse dark areas);
-- wind shadows behind land;
-- natural surface films, drawn into lines and spirals by eddies (Gade et al. 2013; Munk 2001).
+- sea sheltered from the wind by land;
+- natural surface films, drawn into lines and spirals by eddies (Gade et al. 2013).
 
-One radar image cannot tell oil from a natural film, which is why dark features away from the ships are
-labelled "oil possible" (Alpers et al. 2017 question the high success rates claimed for
-single-polarisation radar detection, because its training images were rarely checked by aircraft or on
-site). Below about -22 dB the radar can be at its instrument noise floor (about -30 to -22 dB,
-Kellndorfer et al. 2022): there, darker grey means little or no measurable return, not "more oil".
+One radar image cannot tell oil from a natural film (Alpers et al. 2017 question the high success rates
+claimed for single-polarisation radar detection, because its training images were rarely checked by aircraft
+or on site). **All three layers share one grey scale** (-26 dB black to -10 dB white), so a brighter sea means
+a stronger wind, which is the main clue for telling oil from low-wind look-alikes. Straight lines across the
+sea are instrument seams (probably sub-swath boundaries).
 
-## The four layers
+## The three layers
 
-### 1. 9 Oct 2018, 17:14 UTC: radar, the slick at its source (opens here)
+All three: Sentinel-1 radiometrically terrain-corrected backscatter (`sentinel-1-rtc`, VV, 10 m grid), all
+image slices of the pass mosaicked, converted to decibels (10 log10), land made transparent (GLOBE land mask
+grown 1 km seaward), grey in 0.5 dB steps from -26 dB (black) to -10 dB (white). Wind is ERA5 10 m wind at
+the oil (a 0.25° model, not local wind).
 
-- **What you see:** a dark line about 60 km long, running west-north-west from the two ships (bright dot
-  at ~43.25N 9.48E) and curling north at its far end. The broad dark areas south-east of the ships and
-  in the Gulf of Genoa are probably calm, low-wind water (look-alikes; ESA calls the first one calm water).
-- **How it is made:** Sentinel-1A pass of 9 Oct 17:14 UTC (`sentinel-1-rtc`, VV polarisation,
-  terrain-corrected backscatter on a 10 m grid). The 2 image slices of the pass are mosaicked, converted
-  to decibels (10 log10) and shown in grey in 1 dB steps, -26 dB black to -6 dB white.
-- **Method:** visual reading of dark, sharp-edged patches in C-band VV radar, with the wind window, the
-  bright-ship signature and the look-alike criteria of Topouzelis (2008) and Fingas & Brown (2018).
+![The three layers zoomed in, tile zoom 9](figures/layers_z9_detail.png)
 
-### 2. 9 Oct 2018, 10:20 UTC: optical, the same slick 7 hours earlier
+*What to look at in each layer, at tile zoom 9 (local render of the Studio code).*
 
-- **What you see:** zoomed in on the ships (map zoom 11 or more), a dashed bright streak about 20 km
-  long running west-north-west from the ships, on the path the radar shows dark 7 hours later. At the
-  opening zoom the layer is a box of white (Corsica, cloud, haze), grey and black: the black wedge in the
-  south-east corner is outside the satellite's swath (no data), and the other black patches are very dark
-  water, not a sign of oil. Zoom in.
+### 1. 8 Oct 2018, 17:21 UTC: the slick at its source (opens here)
 
-  ![Radar, optical and detection layers at zoom 11 around the ships](figures/ships_zoom11.png)
+- **What you see:** a dark slick about 35 km long leaving the two ships (white dot at ~43.25N 9.48E) towards
+  the north-west, ending near 43.44N 9.14E. ESA measured this exact image at about 35 km; the 10 Oct aircraft
+  strips lie along it.
+- **Pass:** Sentinel-1B, relative orbit 88 (ascending), 3 slices. Wind 3.1 m/s, at the low edge of the
+  detectable range, so the image has its own look-alikes: the lee of Corsica (9.0-9.4E, 42.8-43.0N) and a
+  coastal low-wind swirl (7.0-7.4E, 43.45-43.57N).
+- **Why this pass:** the boldest view of the slick on any Sentinel-1 image. The 05:27 image of the same morning
+  is the official first image (about 20 km) but the slick is too thin to read at the opening zoom.
 
-- **How it is made:** one Sentinel-2A image (`sentinel-2-l2a`, tile 32TNN, 9 Oct 10:20 UTC), red band
-  B04 (665 nm, 10 m), grey from reflectance 0 (black) to 0.005 (white). Open sea near the ships is about
-  0.0016 and the streak about 0.006; land, cloud and hazy water are white. Only one tile is used, because the
-  atmospheric correction (Sen2Cor) treats each tile on its own and over the sea neighbouring tiles differ
-  by up to 8x, which leaves seams. Faint diagonal bands follow the Sentinel-2 detector footprints.
-- **Method:** presence or absence of the slick from its contrast with the water around it, the standard
-  optical use (Hu et al. 2021), and only where the radar already shows the slick, because visible data
-  alone cannot identify oil at an unknown location (Fingas & Brown 2018). Oil can look brighter or darker
-  than water depending on sun and view angles, oil type and thickness (Zhao et al. 2014), and sunglint
-  contrast can reverse (Jackson & Alpers 2010). Sentinel-2 has been used to corroborate Sentinel-1 slicks
-  (Rajendran et al. 2021) and to map oil (Kolokoussis & Karathanassi 2018). Sen2Cor red reflectance over
-  water can be off by more than 100 % (Warren et al. 2019), hence one tile and relative values only. The
-  brightness is not used to infer thickness or oil type.
+### 2. 9 Oct 2018, 17:14 UTC: 24 hours later
 
-### 3. 13 Oct 2018, 05:36 UTC: radar with automatic dark-spot detection
+- **What you see:** a dark line 50-60 km long out to about 8.97E 43.43N, curling north at its end (to about
+  9.1E 43.56-43.58N). The broad dark area south-east of the ships (9.5-9.6E, 43.15-43.22N) is calm water, as
+  ESA described it: the look-alike lesson.
+- **Pass:** Sentinel-1A, relative orbit 15 (ascending). Wind 3.2 m/s. With the shared grey scale the slick
+  is fainter than layer 1 (16 grey levels of contrast against the sea at tile zoom 8, against 32 for layer 1).
+- **Why this pass:** together with layer 1 it shows the growth in 24 hours, as ESA published it. The morning
+  aircraft count (25 km in 7 sections) is shorter than the radar line, which also includes thin sheen.
 
-- **What you see:** six days on, sharp-edged dark fragments 60-80 km north-west of the ships
-  (43.55-43.8N, 8.6-9.0E), probably the drifting slick, flagged **orange**. Orange along the Ligurian and
-  west Corsican coasts is probably wind shadow (look-alike): a flag is a candidate, not oil.
-- **How it is made:** Sentinel-1A pass of 13 Oct (only the slices over 42-47N). Land is masked first
-  (GLOBE 30" land mask grown 1 km seaward, stored in the script as `LAND`). Each sea pixel is flagged
-  when it is at least K = 3 dB darker than the mean of the sea pixels in the 31 x 31 map pixels around
-  it; the grey radar image stays underneath. The backend computes each 256-pixel map tile on its own, so
-  the window follows the zoom: ~14 km at zoom 8, ~7 km at zoom 9, ~3.5 km at zoom 10. Dark areas much
-  wider than the window (low wind) are mostly not flagged; narrow ones are.
-- **Method:** step 1 (dark-spot detection by an adaptive threshold) of the dark spot -> features ->
-  oil-or-look-alike chain of Solberg et al. (1999, 2007); as reviewed by Topouzelis (2008), "the threshold
-  is set k dB below the mean value of the moving window". Simplified here: one fixed window, no multiscale
-  pyramid, no speckle filter, no clustering or minimum size, a mean of dB values, one fixed K. K = 3 dB is
-  a display choice: the published methods adapt the threshold to sensor and wind (Solberg et al. 1999;
-  Mera et al. 2012), and the 1.9 dB found best by Babagolimatikolaei (2025) was tuned on VV amplitude in
-  the Persian Gulf, so it is not directly comparable.
+### 3. 13 Oct 2018, 05:36 UTC: possible drifting fragments
 
-### 4. 19 Oct 2018, 17:31 UTC: radar, fragments off the Var
+- **What you see:** sharp-edged dark fragments 60-80 km north-west of the ships (8.62-8.97E, 43.55-43.78N),
+  possibly part of the drifting oil. Look first at the compact south-west patch (about 16 km²) and the east
+  patch (about 4 km²). The largest dark object, a 54 km² north-south mass at 43.63-43.76N 8.70-8.83E, is the
+  most ambiguous: its straight east edge runs roughly parallel to the wind, and its northern fingers merge into
+  the Gulf of Genoa low-wind zone. Dark areas near the coasts are sheltered from the wind; radar cannot tell
+  whether oil is inside them.
+- **Pass:** Sentinel-1A, relative orbit 66 (descending), 4 slices; the ships are outside the swath. Wind
+  4.4 m/s.
+- **Why "possibly":** no source gives an oil position for 13 Oct. The fragments lie inside the drift corridor
+  forecast by Météo-France's MOTHY model (Daniel et al. 2021, Fig. 2), but the leading oil was probably closer
+  to the coast, in sheltered low-wind sea where radar cannot separate it (along that corridor west of 8.4E, 17 %
+  of sea pixels are below -22 dB).
 
-- **What you see:** sharp-edged dark fragments about 10-75 km off the Var coast (42.85-43.05N, 6.6-7.5E), three days
-  after the first oil beached ("oil possible"). The broad, diffuse dark patches along the coast are
-  probably low wind (look-alike), and thin curls further north are surface films (natural or oil) drawn
-  out by eddies.
-- **How it is made:** as layer 1, but with its own grey ramp, -30 dB black to -16 dB white, because this
-  light-wind scene is much darker: over the sea its median is about -22.5 dB, against about -19 dB for
-  the 13 Oct pass over the same stretch of sea and about -16 dB on 9 Oct, over the sea further east (land
-  dropped as pixels above -12 dB, on a 200 m grid). Much of it is
-  near the radar noise floor, so its darkest greys are not quantitative.
-- **Method:** as layer 1. Drift context: surface waters flowing north on both sides of Corsica join in
-  the Gulf of Genoa to form the Ligurian (Northern) Current, which follows the coast of Provence (Millot
-  1987); the drift of this spill was modelled by Liubartseva et al. (2020).
+## What was left out, and why
+
+- **Automatic dark-spot detection** (the 13 Oct orange flags of the previous version). Re-implemented exactly
+  (2,490 of 2,490 orange pixels match the backend) and scored against the probable oil: at the opening view
+  only 13 % of the orange fell on it and 58 % lay within 10 km of the coast; the flags also changed with zoom,
+  because the 31-pixel window spans 27.7 km at tile zoom 7 but 3.4 km at zoom 10 (the orange area fell from
+  972 km² at zoom 7 to 98 km² at zoom 10), so zooming in unflagged most of the largest fragment. No per-tile
+  variant worked on all three passes. In the literature this adaptive threshold is only step 1 of a three-step
+  chain (dark spots, then features, then oil or look-alike; Solberg et al. 1999, 2007), its output is mostly
+  look-alikes, and it is meant for trained operators. Automatic detection helps, but a person still has to judge
+  every candidate.
+
+  ![The detection flags at tile zooms 7-10](figures/detection_zoom_series.png)
+
+  *The previous 13 Oct detection layer (orange) at tile zooms 7 to 10: the flags change with zoom.*
+- **Sentinel-2, 9 Oct 10:20.** The slick shows as a thin bright streak in the red band, but only from map zoom
+  11 near the ships; at the opening zoom the layer was a white and dark box. It confirms what the radar shows
+  and adds nothing new:
+
+  ![Radar and Sentinel-2 at zoom 11 around the ships, 9 Oct](figures/ships_zoom11.png)
+
+  *Previous version, 9 Oct around the ships at zoom 11: radar, Sentinel-2 red band and the detection flags.*
+- **19 Oct off the Var.** Wind 1.3-3.0 m/s, 57 % of the Var area below -22 dB, and the "fragments" at about
+  -27 dB, at the instrument noise floor; from 14 Oct the officials reported only tarballs. The morning pass of
+  the same day (7.0 m/s) shows only faint, unconfirmed lines 10-20 km west of the evening ones, so the pair does
+  not support itself.
+- **14 Oct.** A thin trail attached to the *CSL Virginia* (43.25-43.35N) shows the ship still leaking (Cedre
+  reports new leaks in rough seas), but only when zoomed in to tile zoom 10; elsewhere the wind was 8.7-10.9 m/s, above the
+  range where oil shows.
+- **12, 14 and 18 Oct passes** off the Var and along the Ligurian Current: winds of 8.7-11.1 m/s.
 
 ## Choices and limits
 
-- Layers dropped from the first version: the 8 Oct (two passes), 14 Oct and 20 Oct radar images, which
-  repeated what layers 1, 3 and 4 show.
-- Wind was not used to make the layers. A spot check of ERA5 hourly 10 m winds (about 30 km grid, via the
-  Open-Meteo archive; Hersbach et al. 2020) gave, on 9 Oct at 17 UTC, about 1 m/s in the Gulf of Genoa
-  (44.0N 9.0E) and about 3 m/s south-east of the ships (43.0N 9.7E); on 13 Oct at 05-06 UTC, about 2 m/s at
-  the fragments (43.7N 8.8E), the low end of the wind window, where look-alikes multiply; on 19 Oct at
-  17 UTC, about 3.4 m/s off the Var (43.0N 7.0E). ERA5 cannot be a Studio layer (Zarr only on Planetary
-  Computer) and is too coarse to resolve single calm patches, so the "low wind" and "wind shadow" readings
-  here come from the shape and level of the backscatter.
-- The 13 Oct fragments are linked to the Ulysse spill by position, sharp edges and timing; no dated
-  official position for 13 Oct was found.
-- `sentinel-1-rtc` is documented by Planetary Computer as needing an account to read; anonymous access
-  works today. If that changes, layers 1, 3 and 4 stop rendering; layer 2 does not.
-- Cold tiles at tile zoom 6 can take 35-40 s (many radar slices per tile).
+- **Where the record stops.** Radar saw the slick clearly on 8 and 9 Oct and glimpsed possible fragments on
+  13 Oct; aircraft did the daily tracking. No Sentinel-1 image shows the oil arriving on the Var coast.
+- **Wind** was not used to make the layers; ERA5 values above are a 0.25° model, too coarse for single calm
+  patches, so "low wind" and "sheltered" readings come from the shape and level of the backscatter.
+- **The opening zoom depends on window width.** Below about 525 px of map width Studio opens at tile zoom 7,
+  where the 9 Oct slick has no pixel below -21 dB; widen the window or zoom in one step.
+- **First views are slow** (local tiles took 0.1-10 s; land-only tiles are the slowest, because the radar is
+  read before it is masked).
+- `sentinel-1-rtc` is documented by Planetary Computer as needing an account to read; anonymous access works
+  today (21 Oct 2026). If that changes, the layers stop rendering.
 
 ## Data
 
-| Layer | Collection | Item(s) / time window (UTC) | Band |
+| Layer | Collection | Pass (UTC time window) | Band |
 |---|---|---|---|
-| 1 | `sentinel-1-rtc` | S1A pass, 2018-10-09 17:09-17:19 | VV |
-| 2 | `sentinel-2-l2a` | S2A, 2018-10-09 10:15-10:25, MGRS tile 32TNN | B04 |
-| 3 | `sentinel-1-rtc` | S1A pass, 2018-10-13 05:35:40-05:36:30 | VV |
-| 4 | `sentinel-1-rtc` | S1A pass, 2018-10-19 17:26-17:36 | VV |
+| 1 | `sentinel-1-rtc` | S1B, relative orbit 88, 2018-10-08 17:20-17:24 | VV |
+| 2 | `sentinel-1-rtc` | S1A, relative orbit 15, 2018-10-09 17:09-17:19 | VV |
+| 3 | `sentinel-1-rtc` | S1A, relative orbit 66, 2018-10-13 05:35:40-05:36:30 | VV |
 
 ## References
 
 Event:
-- BEAmer (2019), investigation report, <https://www.bea-mer.developpement-durable.gouv.fr/rapport-d-enquete-abordage-du-csl-virginia-par-l-a506.html>
-- ESA, "Oil spill spread", <https://www.esa.int/ESA_Multimedia/Images/2018/10/Oil_spill_spread>
+- BEAmer (2019), investigation report, <https://web.archive.org/web/20201203140744id_/http://www.bea-mer.developpement-durable.gouv.fr/IMG/pdf/beamer-fr_csl_virginia_-_ulysse__fr-en__2018.pdf>
+- ESA, "Oil spill spread", <https://web.archive.org/web/20191211035215/https://www.esa.int/ESA_Multimedia/Images/2018/10/Oil_spill_spread>
+- EMSA CleanSeaNet brochure (2019), p. 6, <https://www.emsa.europa.eu/recently-published/download/5911/3771/23.html>
+- Préfecture maritime de la Méditerranée, press releases on the collision, <https://www.premar-mediterranee.gouv.fr/communiques-presse/collision-entre-un-navire-roulier-et-un-porte-conteneurs-environ-28-km-au-nord-du-cap-corse>
 - Cedre, incident sheet, <https://cedre.fr/en/resources/incident-information-sheets/csl-virginia>
-- Préfecture maritime de la Méditerranée, quoted by Corse Net Infos, 13 Oct 2018, <https://www.corsenetinfos.corsica/Collision-maritime-au-large-du-Cap-Corse-Quand-l-equipage-de-L-Ulysse-fait-le-buzz_a35919.html>
+- Daniel et al. (2021), Int. Oil Spill Conf. Proc. 2021, 1141410, <https://doi.org/10.7901/2169-3358-2021.1.1141410>
 - Liubartseva et al. (2020), Mar. Pollut. Bull. 154, 111002, <https://doi.org/10.1016/j.marpolbul.2020.111002>
 
 Method (every DOI checked on Crossref):
 - Alpers, Holt & Zeng (2017), Remote Sens. Environ. 201, 133-147, <https://doi.org/10.1016/j.rse.2017.09.002>
-- Babagolimatikolaei (2025), J. Ocean Eng. Sci. 10, 386-394, <https://doi.org/10.1016/j.joes.2022.05.029>
 - Fingas & Brown (2018), Sensors 18, 91, <https://doi.org/10.3390/s18010091>
 - Gade et al. (2013), Oceanography 26(2), 138-149, <https://doi.org/10.5670/oceanog.2013.39>
 - Hersbach et al. (2020), Q. J. R. Meteorol. Soc. 146, 1999-2049, <https://doi.org/10.1002/qj.3803>
-- Hu et al. (2021), J. Remote Sens. 2021, 9141902, <https://doi.org/10.34133/2021/9141902>
-- Jackson & Alpers (2010), J. Geophys. Res. 115, C09019, <https://doi.org/10.1029/2009JC006037>
-- Kellndorfer et al. (2022), Sci. Data 9, 73, <https://doi.org/10.1038/s41597-022-01189-6>
-- Kolokoussis & Karathanassi (2018), J. Mar. Sci. Eng. 6, 4, <https://doi.org/10.3390/jmse6010004>
-- Mera et al. (2012), Mar. Pollut. Bull. 64, 2090-2096, <https://doi.org/10.1016/j.marpolbul.2012.07.018>
-- Millot (1987), Oceanol. Acta 10, 143-149 (no DOI), <https://archimer.ifremer.fr/doc/00108/21915/19505.pdf>
-- Munk (2001), Sci. Mar. 65(S2), 193-198, <https://doi.org/10.3989/scimar.2001.65s2193>
-- Rajendran et al. (2021), Environ. Pollut. 274, 116618, <https://doi.org/10.1016/j.envpol.2021.116618>
 - Solberg et al. (1999), IEEE TGRS 37, 1916-1924, <https://doi.org/10.1109/36.774704>
 - Solberg, Brekke & Husøy (2007), IEEE TGRS 45, 746-755, <https://doi.org/10.1109/TGRS.2006.887019>
 - Topouzelis (2008), Sensors 8, 6642-6659, <https://doi.org/10.3390/s8106642>
-- Warren et al. (2019), Remote Sens. Environ. 225, 267-289, <https://doi.org/10.1016/j.rse.2019.03.018>
-- Zhao et al. (2014), Opt. Express 22, 13755, <https://doi.org/10.1364/OE.22.013755>
+
+## History
+
+- v1-v3 (21 Oct 2026): 7, then 4 layers (radar 9, 13 and 19 Oct, Sentinel-2 9 Oct), with an automatic
+  dark-spot layer on 13 Oct.
+- v4 (21 Oct 2026): after a re-review of the scenes and the detection (scene inventory, official records,
+  detection scoring, two skeptics), three plain radar layers on one grey scale; the detection layer, Sentinel-2
+  and 19 Oct dropped; 8 Oct evening added; land mask cropped to the passes (15 KB instead of 22 KB).
+  Checked on a local copy of the backend (titiler-openeo c9b6ee3) on 33 tiles at tile zooms 7-10 for each
+  layer: 81 tiles HTTP 200, 18 HTTP 404 "no data" (outside a pass), none failed; at least 97 % of the opaque
+  pixels identical to a numpy emulation of the grey scale; land transparent; the 9 Oct slick 23 grey levels
+  darker than the surrounding sea at tile zooms 7-8 and 31 at zoom 9. Not yet rendered in production.
 
 ## Credits
 

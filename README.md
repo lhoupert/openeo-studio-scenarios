@@ -7,7 +7,7 @@ references. The Studio project carries a short description; the scenario README 
 
 | Scenario | Story | Layers | Studio project |
 |---|---|---|---|
-| [ulysse-oil-spill-2018](scenarios/ulysse-oil-spill-2018/) | Oil spill after the Ulysse / CSL Virginia collision off Cap Corse, Oct 2018 | Sentinel-1 radar (x2), Sentinel-2 optical, radar dark-spot detection | [open](https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar) |
+| [ulysse-oil-spill-2018](scenarios/ulysse-oil-spill-2018/) | Oil spill after the Ulysse / CSL Virginia collision off Cap Corse, Oct 2018 | Sentinel-1 radar (x3, one grey scale) | [open](https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar) |
 | [north-water-polynya-2026](scenarios/north-water-polynya-2026/) | The North Water polynya and its ice arch, Mar-Jun 2026 | Sentinel-1 radar change, Landsat 9 temperature, Sentinel-2 true colour (x2) | [open](https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar) |
 | [nw-med-deep-winters](scenarios/nw-med-deep-winters/) | Winter deep convection in the Gulf of Lion and the bloom that follows, 2005-2026 | MODIS-Aqua 8-day chlorophyll proxy, four projects of 9-11 layers | [2013](https://studio.mpc.ds.io/editor/exp-nw-med-deep-convection-2013-modis-8-day-sequence), [compared](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-compared-modis-patch), [weeks](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-low-chl-weeks-modis), [recent](https://studio.mpc.ds.io/editor/exp-nw-med-recent-winters-2019-2026-vs-2013-and-2018-modis-patch) |
 
