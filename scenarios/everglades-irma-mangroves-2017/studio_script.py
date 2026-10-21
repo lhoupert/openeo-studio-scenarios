@@ -1,15 +1,15 @@
 """
 Exp - Everglades mangroves after Hurricane Irma 2017
 
-In September 2017 Hurricane Irma pushed the sea more than 1.4 m above the ground into the mangrove forests of Everglades National Park, at the southern tip of Florida. Most damaged trees grew new leaves within a year. But where the ground is lowest and the sea water could not drain away, it stayed and the forest died: about 10,760 ha in southwest Florida, one of the largest mangrove diebacks on record. Storm surge and ponding killed these trees, not the wind, and rising seas make such diebacks easier to trigger.
+In September 2017 Hurricane Irma pushed the sea more than 1.4 m above the ground into the mangroves of Everglades National Park, at the southern tip of Florida. Most damaged trees grew new leaves within a year, but where the ground is lowest the sea water could not drain away, and the forest died: about 10,760 ha in southwest Florida, one of the largest mangrove diebacks on record, killed by surge and ponding, not wind. The study's authors add that rising seas, like poor drainage or drought, lower the threshold for such diebacks.
 
 Four layers (open one at a time):
-1. Greenness lost, Jan-Mar 2017 to Jan-Mar 2019 (Landsat 8): red = the vegetation index (NDVI) fell by 0.2 or more, the study's dieback threshold; orange = fell by 0.1-0.2; light grey = little change; green = greener; dark grey = not classed, the index was below 0.5 before the storm (water, mud, sand or sparse marsh).
-2. Ground elevation (USGS 3DEP, 10 m), above the NAVD88 datum: dark purple = below 0 m, blue = 0-0.2 m, teal = 0.2-0.5 m, green = 0.5-1 m, yellow = above 1 m; pale blue = water. Over the land west of about 80.9W it was measured by airborne lidar; east of it, it comes from old topographic maps and is much less precise. The red patches of layer 1 sit on the purple and blue ground, behind a higher strip along the shore.
-3. 22 Mar 2019, false colour (Sentinel-2): red = living forest, pale grey-green = dead forest, light green-cyan inland = marsh, black or cyan = water.
-4. 25-26 Nov 2019, aerial photo, 0.6 m (NAIP): grey standing dead trees around brown ponds, next to green living forest. Zoom in to see the trees (map zoom 13 or more); this layer is blank or patchy when zoomed out below map zoom 10.
+1. Greenness lost, Jan-Mar 2017 to Jan-Mar 2019 (Landsat 8): red = the vegetation index (NDVI) fell by 0.2 or more, the drop the study used for dieback (its dieback also showed little regrowth during 2018); orange = 0.1-0.2; light grey = little change; green = greener; dark grey = not classed, no dense vegetation before the storm (water, mud, sand, sparse marsh).
+2. Ground elevation (USGS 3DEP, 10 m): dark purple = below 0 m, blue = 0-0.2 m, teal = 0.2-0.5 m, green = 0.5-1 m, yellow = above 1 m, pale blue = flat (water). The red of layer 1 sits on purple and blue ground behind a higher strip along the shore. Lidar west of about 80.9W (81.0W in the north of the box); east of it, old topographic maps: rough, with flat marsh in pale blue and a straight seam at the edge. Dark purple rims around ponds and islands are water.
+3. 22 Mar 2019, false colour (Sentinel-2): red = living forest, dull grey-green = dead forest (darker than the light green-cyan marsh inland), black or cyan = water.
+4. 25-26 Nov 2019, aerial photo, 0.6 m (NAIP): grey standing dead trees around brown ponds, next to green living forest. Tick it after zooming in at least one step from the opening view (blank or patchy further out); single trees show three to four steps in.
 
-The study measured the loss over the 15 months after the storm; layer 1 compares two dry seasons with the same 0.2 threshold.
+The study measured the loss over 15 months; layer 1 compares two dry seasons with the same 0.2 threshold.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/everglades-irma-mangroves-2017/README.md
 
@@ -30,6 +30,20 @@ def condition(process_id, value):
     }
 
 
+def between(low, high):
+    """A load_collection property filter: `low <= <property> <= high`. It keeps Studio's zoomed-out map tiles
+    under the backend's limit of images per tile (20 at c9b6ee3)."""
+    return {
+        "process_graph": {
+            "f": {
+                "process_id": "between",
+                "arguments": {"x": {"from_parameter": "value"}, "min": low, "max": high},
+                "result": True,
+            }
+        }
+    }
+
+
 # Landsat Collection 2 QA_PIXEL values of a clear pixel (low cloud, shadow, snow and cirrus confidence),
 # over land and over water; every other value (cloud, shadow, cirrus, fill) is masked.
 CLEAR_LAND, CLEAR_WATER = 21824, 21952
@@ -41,9 +55,16 @@ def not_clear(data):
     return array_create([and_(qa != CLEAR_LAND, qa != CLEAR_WATER)])
 
 
-def ndvi_median(start, end, label):
-    """Per-pixel median NDVI of the clear Landsat 8 observations between start and end. WRS path 15 sees the
-    whole box (path 16 only its western edge); scenes up to 50 % cloud, the QA mask removes the clouds."""
+def clear_median(cube, label):
+    """Per-pixel median over time, as one band named label."""
+    cube = cube.process("apply_pixel_selection", pixel_selection="median", data=cube)
+    return cube.rename_labels(dimension="bands", target=[label])
+
+
+def ndvi_median(start, end, label, nir_label=None):
+    """Per-pixel median NDVI of the clear Landsat 8 observations between start and end; with nir_label, also
+    their median near-infrared reflectance as a second band. WRS path 15, rows 42-43 see the whole box (path 16
+    only its western edge); scenes up to 50 % cloud, the QA mask removes the clouds."""
     cube = DataCube(
         graph=PGNode(
             "load_collection",
@@ -54,37 +75,42 @@ def ndvi_median(start, end, label):
             properties={
                 "platform": condition("eq", "landsat-8"),
                 "landsat:wrs_path": condition("eq", "015"),
+                "landsat:wrs_row": between("042", "043"),
                 "eo:cloud_cover": condition("lt", 50),
             },
         )
     )
-    ndvi = cube.ndvi(nir="nir08", red="red").mask(cube.apply_dimension(dimension="bands", process=not_clear))
-    ndvi = ndvi.process("apply_pixel_selection", pixel_selection="median", data=ndvi)
-    return ndvi.rename_labels(dimension="bands", target=[label])
+    hide = cube.apply_dimension(dimension="bands", process=not_clear)
+    medians = clear_median(cube.ndvi(nir="nir08", red="red").mask(hide), label)
+    if nir_label:
+        medians = medians.merge_cubes(clear_median(cube.filter_bands(["nir08"]).mask(hide), nir_label))
+    return medians
 
 
 VEGETATED = 0.5  # 2017 NDVI below this (water, mud, bare sand, sparse marsh) is not classed
+DARK = 0.05  # 2017 near-infrared reflectance below this (water) is not classed: leaves reflect far more
 BARE = 10  # value given to the pixels that are not classed, in their own colour class
 DROP_COLORMAP = [
     [[-10, -0.1], [26, 150, 65, 255]],  # greener in 2019
     [[-0.1, 0.1], [200, 200, 200, 255]],  # little change
     [[0.1, 0.2], [253, 174, 97, 255]],  # NDVI down by 0.1-0.2
-    [[0.2, 5], [215, 25, 28, 255]],  # NDVI down by 0.2 or more: dieback
+    [[0.2, 5], [215, 25, 28, 255]],  # NDVI down by 0.2 or more: the drop the study used for dieback
     [[5, 20], [60, 60, 80, 255]],  # not classed (BARE)
 ]
 
 
 def drop(data):
-    """NDVI 2017 - NDVI 2019 where the 2017 NDVI is between VEGETATED and 1, else BARE. Over dark water the
-    reflectance (offset -0.2) can be negative and NDVI leaves [-1, 1]: such a value is not a vegetation reading."""
-    before, after = data[0], data[1]
-    classed = (before >= VEGETATED) * (before <= 1)
+    """NDVI 2017 - NDVI 2019 where the 2017 NDVI is between VEGETATED and 1 and the 2017 near-infrared at least
+    DARK, else BARE. Over dark water the reflectance (offset -0.2) is near 0 with mixed signs, so NDVI can take
+    any value, even 0.5-1: such a value is not a vegetation reading."""
+    before, nir_before, after = data[0], data[1], data[2]
+    classed = (before >= VEGETATED) * (before <= 1) * (nir_before >= DARK)
     return array_create([(before - after) * classed + BARE * (1 - classed)])
 
 
 def greenness_lost(name):
     """NDVI drop between two dry seasons, before (2017) and after (2019) the storm, in classes."""
-    pair = ndvi_median("2017-01-01T00:00:00Z", "2017-03-31T23:59:59Z", "ndvi2017").merge_cubes(
+    pair = ndvi_median("2017-01-01T00:00:00Z", "2017-03-31T23:59:59Z", "ndvi2017", "nir2017").merge_cubes(
         ndvi_median("2019-01-01T00:00:00Z", "2019-03-31T23:59:59Z", "ndvi2019")
     )
     change = pair.apply_dimension(dimension="bands", process=drop)
@@ -93,7 +119,8 @@ def greenness_lost(name):
 
 
 # The elevation model gives the sea and lakes one constant level each (0 m for the Gulf, -0.259 m, 0.1 m, ...
-# for bays and ponds): a pixel whose 5 x 5 neighbourhood is flat to the millimetre is water, not ground.
+# for bays and ponds): a pixel whose 5 x 5 neighbourhood is flat to the millimetre is water, not ground. Water
+# within 2 pixels of a shore fails the test and keeps the colour of its level (the purple rims around ponds).
 FLAT = 1e-6  # m2: local variance below this (standard deviation under 1 mm) = flattened water
 WATER = 100  # shift that moves those pixels into their own colour class
 MEAN_5X5 = dict(kernel=[[1] * 5] * 5, factor=1.0 / 25, border="replicate", replace_invalid=0)
@@ -109,7 +136,8 @@ ELEVATION_COLORMAP = [
 
 def ground_elevation(name):
     """USGS 3DEP seamless DEM, 1/3 arc-second (10 m) tiles only, metres above NAVD88. Its sources: 2008 lidar over
-    the land west of about 80.88W, older map-based DEMs east of it and under the bays and the Gulf."""
+    the land west of about 80.88W (80.94-80.99W north of 25.45N, none at 25.6N), older map-based DEMs elsewhere
+    and under the bays and the Gulf."""
     cube = DataCube(
         graph=PGNode(
             "load_collection",
@@ -158,6 +186,7 @@ def false_colour(start, end, name):
             spatial_extent=bounding_box,
             temporal_extent=[start, end],
             bands=["B08", "B04", "B03"],
+            properties={"s2:mgrs_tile": between("17RMH", "17RNJ")},  # the box's 4 tiles (and 17RMK, 17RML)
         )
     )
     cube = cube.process("apply_pixel_selection", pixel_selection="first", data=cube)
@@ -186,18 +215,20 @@ def aerial_photo(start, end, name):
 
 
 OPEN_ON = 0
-greenness_lost("Jan-Mar 2017 to Jan-Mar 2019, greenness lost: red = dieback (NDVI down by 0.2 or more),"
-               " orange = down by 0.1-0.2, light grey = little change, green = greener, dark grey = not classed"
-               " (NDVI below 0.5 in 2017: water, mud, sand or sparse marsh)")
-ground_elevation("Ground elevation (USGS 3DEP, 10 m; lidar west of about 80.9W): dark purple = below 0 m,"
-                 " blue = 0-0.2 m, teal = 0.2-0.5 m, green = 0.5-1 m, yellow = above 1 m, pale blue = water")
+# Studio's layer list shows only the start of each name: subject first, legend after.
+greenness_lost("Greenness lost, Jan-Mar 2017 to Jan-Mar 2019: red = NDVI down by 0.2 or more (the drop the study"
+               " used for dieback), orange = down by 0.1-0.2, light grey = little change, green = greener, dark grey"
+               " = not classed (no dense vegetation in 2017: water, mud, sand or sparse marsh)")
+ground_elevation("Ground elevation (USGS 3DEP, 10 m; lidar west of about 80.9W, 81.0W in the north): dark purple"
+                 " = below 0 m, blue = 0-0.2 m, teal = 0.2-0.5 m, green = 0.5-1 m, yellow = above 1 m, pale blue"
+                 " = flat (water)")
 false_colour("2019-03-22T16:00:00Z", "2019-03-22T16:10:00Z",
-             "22 Mar 2019, false colour: red = living forest, pale grey-green = dead forest, light green-cyan"
+             "22 Mar 2019, false colour: red = living forest, dull grey-green = dead forest, light green-cyan"
              " inland = marsh")
 # The north-west coast was flown on 25 Nov, the rest of the box on 26 Nov.
 aerial_photo("2019-11-25T00:00:00Z", "2019-11-26T23:59:59Z",
-             "25-26 Nov 2019, aerial photo 0.6 m: grey dead trees next to green living forest (zoom in; blank or"
-             " patchy below map zoom 10)")
+             "25-26 Nov 2019, aerial photo 0.6 m: grey dead trees next to green living forest (zoom in at least"
+             " one step before ticking; blank or patchy further out)")
 
 # Studio draws every visible layer, later ones on top and semi-transparent (80 %, 70 %, ...), so two
 # ticked layers blend: open on ONE layer and untick it before ticking the next (hidden layers fetch no

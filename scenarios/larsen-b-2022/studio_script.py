@@ -1,12 +1,12 @@
 """
 Exp - Larsen B 2022 fast-ice breakout and glacier retreat
 
-For eleven years (2011-2022), sea ice frozen to the coast ("fast ice") filled the northern Larsen B embayment, on the east coast of the Antarctic Peninsula. It held back the glaciers that flow into it, and their ice tongues grew up to 16 km beyond their 2011 fronts. In late January 2022 a strong ocean swell reached the coast through a near-ice-free corridor in the north-western Weddell Sea, where sea ice was at a 12-year low. The fast ice broke out, and the scientists who studied the event link the breakout to that swell. The glacier tongues broke up next. Within months three glaciers had more than doubled their speed and retreated by 11 to 25 km, losing grounded ice, the kind that raises sea level.
+For eleven years (2011-2022), sea ice frozen to the coast ("fast ice") filled the northern Larsen B embayment, on the east coast of the Antarctic Peninsula. It held back the glaciers that flow into it, and their ice tongues grew up to 16 km beyond their 2011 fronts. In late January 2022 a strong ocean swell reached the coast through a near-ice-free corridor in the north-western Weddell Sea, where sea ice was at a 12-year low. The fast ice broke out; the study of the event links the breakout to that swell. The glacier tongues broke up next. Within months three glaciers had more than doubled their speed and retreated by 11 to 25 km, calving floating and grounded ice; only grounded ice above flotation adds to sea level (no amount is given here).
 
 Four layers (open one at a time):
-1. 18 Jan 2022, true colour: before. White fast ice fills the embayment and the glaciers flow into it from the mountains to the west; black = open water, east of the fast-ice edge.
-2. 23 Jan-16 Feb 2022, radar change: red = ice that was there on 23 Jan and gone by 4 Feb; yellow-green = ice still there on 4 Feb, gone by 16 Feb. These two colours mark only part of the breakout, most clearly the large red area in the south: elsewhere ice that went shows as purple or a speckled mix of colours. Ice that stayed in place is a pale speckle of many colours, grey only on average. Black = cracks already open on 23 Jan. On land and glaciers the colours come from melting and refreezing snow, not from motion; over open sea, from the wind.
-3. 10 Feb 2022, true colour: after. Open water and drifting floes where the fast ice was; the glacier tongues still hold in the west.
+1. 18 Jan 2022, true colour: before. White fast ice fills the embayment, fed by glaciers from the mountains to the west; black = open sea east of its edge.
+2. 23 Jan-16 Feb 2022, radar change: red = ice there on 23 Jan, gone by 4 Feb; yellow-green = still there on 4 Feb, gone by 16 Feb. These two colours mark only part of the breakout, most clearly the large red area in the south; ice that stayed is a pale, many-coloured speckle. Black wedges inside the red = cracks open on 23 Jan. The red north-east corner is open sea (wind); colours on land and glaciers come from melting and refreezing snow, not motion.
+3. 10 Feb 2022, true colour: two weeks into the breakout. Open water and floes in the east and south; the glacier tongues and the ice in front of them still hold in the west.
 4. 13 Jan 2023, true colour: a year later. Open water now reaches far into the inlets where the glacier tongues were.
 
 The ice edges and glacier fronts are read from the images, not measured. Dark, blurry patches on the ice in layers 1 and 3 are cloud shadows, not open water.
@@ -101,12 +101,12 @@ true_colour("2022-01-18T13:15:00Z", "2022-01-18T13:25:00Z",
             "18 Jan 2022, true colour: before, white fast ice fills the embayment"
             " (black = open water, east of its edge)")
 radar_change(["2022-01-23", "2022-02-04", "2022-02-16"],
-             "23 Jan-16 Feb 2022, radar change: red = ice gone by 4 Feb, yellow-green = gone by 16 Feb"
-             " (only part of the breakout), pale mixed speckle = ice that stayed"
-             " (colours on land = melting and refreezing snow)")
+             "23 Jan-16 Feb 2022, radar change: red = ice gone by 4 Feb, yellow-green = by 16 Feb"
+             " (part of the breakout only); pale speckle = ice that stayed;"
+             " NE corner = open sea; land colours = snow")
 true_colour("2022-02-10T13:25:00Z", "2022-02-10T13:35:00Z",
-            "10 Feb 2022, true colour: after, open water (black) and floes where the fast ice was,"
-            " glacier tongues still in the west")
+            "10 Feb 2022, true colour: two weeks into the breakout, open water (black) and floes in the"
+            " east and south, glacier tongues still in the west")
 true_colour("2023-01-13T13:15:00Z", "2023-01-13T13:25:00Z",
             "13 Jan 2023, true colour: a year later, open water reaches far into the inlets"
             " where the glacier tongues were")

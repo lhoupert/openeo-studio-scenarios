@@ -1,13 +1,13 @@
 """
 Exp - Shark Bay seagrass loss 2011 heatwave Landsat
 
-Shark Bay, a World Heritage Area in Western Australia, holds vast seagrass meadows and the largest carbon stock reported for a seagrass ecosystem. In the summer of 2010-11 a marine heatwave brought seawater 2-5 C warmer than average, and about 1,310 km2 of dense seagrass was lost: the largest loss recorded after a single event. On the shallow banks, seagrass looks dark and bare sand looks bright, so Landsat can show where the meadows thinned.
+Shark Bay, a World Heritage Area in Western Australia, holds vast seagrass meadows and the largest carbon stock reported for a seagrass ecosystem. In the summer of 2010-11 a marine heatwave along the Western Australian coast brought summer seawater 2-5 C warmer than average, and across the World Heritage Area about 1,310 km2 of dense seagrass was lost: the largest loss recorded after a single event. On the shallow banks, seagrass looks dark and bare sand looks bright, so Landsat can show where the meadows thinned.
 
 Four layers (open one at a time):
 1. 12 May 2010, before (Landsat 5): dark patches on the turquoise banks = dense seagrass meadows; the long dark fingers are channels (deeper water); bright turquoise = sand; deep water is black.
-2. 21 Mar 2011, during the heatwave: water temperature compared with the same week in 2004, 2005 and 2007 (Landsat 5). Red = warmer, one colour step per 1 C; white = as usual. The satellite saw only the east of the bay that day (Hamelin Pool and the east of the Faure Sill).
+2. 4 Mar 2011, during the heatwave (Landsat 7): water temperature minus the mean of three cloud-free days of late summer 2000 and 2002 (23 Feb to 11 Mar), same satellite, same time of day. Red = warmer, one colour step per 1 C; white = within 0.5 C of that mean. Thin empty lines are gaps in the 2011 image (Landsat 7's scan-line corrector failed in 2003).
 3. 10 Jul 2014, after (Landsat 8): many of the dark banks of 2010 are lighter, most clearly on the Faure Sill between its channels.
-4. 2010 to 2014, change in green brightness over water: brown = brighter in 2014 (seagrass thinned or lost), teal = darker, white = unchanged.
+4. 2010 to 2014, change in green brightness over water: brown = brighter in 2014 (seagrass thinned or lost, or shallower or clearer water), teal = darker, white = unchanged. The Faure Sill banks are the place to look; the brown rings along the shores of Hamelin Pool are most likely a lower water level in 2014.
 
 Layer 4 compares two different satellites on two days with different tides and water clarity: it shows where to look, it is not a seagrass map.
 
@@ -32,7 +32,7 @@ def condition(process_id, value):
 
 def landsat(platform, start, end, bands):
     """One overpass of one Landsat satellite (all its scenes between start and end, UTC), as one time step.
-    The platform filter keeps Landsat 7 (striped since 2003) out."""
+    The platform filter keeps the other Landsat satellites out if a window is widened."""
     cube = DataCube(
         graph=PGNode(
             "load_collection",
@@ -67,7 +67,8 @@ def true_colour(platform, start, end, name):
 WATER_NIR = 0.05  # near-infrared reflectance below this = water; land, cloud and dry sand are brighter
 
 
-def kelvin(data):
+def lwir(data):
+    """The `lwir` band alone (the backend already returns it in kelvin)."""
     return array_create([data[0]])
 
 
@@ -76,15 +77,14 @@ def not_water(data):
 
 
 def water_temperature(start, end):
-    """Landsat 5 surface temperature (`lwir` = ST_B6, kelvin) of one overpass, over water only."""
-    cube = landsat("landsat-5", start, end, ["lwir", "nir08"])
-    t = cube.apply_dimension(dimension="bands", process=kelvin).rename_labels(dimension="bands", target=["t"])
+    """Landsat 7 surface temperature (`lwir` = ST_B6, kelvin) of one overpass, over water only."""
+    cube = landsat("landsat-7", start, end, ["lwir", "nir08"])
+    t = cube.apply_dimension(dimension="bands", process=lwir).rename_labels(dimension="bands", target=["t"])
     return t.mask(cube.apply_dimension(dimension="bands", process=not_water))
 
 
 # Temperature difference in 1 C classes centred on 0: blue = colder, white = within 0.5 C, red = warmer.
-# Beyond +/-5.5 C: no colour. Such values sit on the swath edge and coasts, probably where the 120 m
-# thermal band, resampled to 30 m, over- and undershoots next to no-data.
+# Beyond +/-5.5 C: no colour (0.1 % of the water at the opening view; a guard against edge artifacts).
 ANOMALY_EDGES = [-5.5, -3.5, -2.5, -1.5, -0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5]
 ANOMALY_COLORS = [
     [5, 48, 97], [33, 102, 172], [67, 147, 195], [146, 197, 222], [247, 247, 247],
@@ -94,7 +94,8 @@ ANOMALY_COLORMAP = [[[ANOMALY_EDGES[i], ANOMALY_EDGES[i + 1]], c + [255]] for i,
 
 
 def temperature_difference(day, reference_days, name):
-    """Water temperature of `day` minus the mean of `reference_days`; each is a (start, end) overpass window."""
+    """Water temperature of `day` minus the mean of `reference_days`; each is a (start, end) overpass window.
+    A pixel missing on any of the days (gap, land, cloud) stays empty: merge_cubes keeps the masks."""
     t = water_temperature(*day)
     refs = [water_temperature(*d) for d in reference_days]
     mean = refs[0]
@@ -136,25 +137,28 @@ def green_brightness_change(before, after, name):
 # Both optical dates come from the same orbit track (path 115), which covers the whole box.
 BEFORE = ("landsat-5", "2010-05-12T02:10:00Z", "2010-05-12T02:16:00Z")
 AFTER = ("landsat-8", "2014-07-10T02:19:00Z", "2014-07-10T02:25:00Z")
-# Path 114 (east of the bay only), ~10:06 local time; references: same path, within 6 days and 11 minutes.
-HEATWAVE = ("2011-03-21T02:04:00Z", "2011-03-21T02:09:00Z")
+# Heat layer: Landsat 7, path 115, about 10:16 local time. The 2011 image has the scan-line gaps of Landsat 7
+# (since May 2003), so the references are the cloud-free path-115 passes from before that, within 9 days of the
+# date and 5 minutes of its time (26 Feb 2003 is left out: cloud over the gulfs that the NIR mask misses).
+# Each window holds rows 076-079 only: rows 071-073 have no lwir band.
+HEATWAVE = ("2011-03-04T02:14:57Z", "2011-03-04T02:16:32Z")
 REFERENCES = [
-    ("2004-03-17T01:53:00Z", "2004-03-17T01:59:00Z"),
-    ("2005-03-20T02:01:00Z", "2005-03-20T02:07:00Z"),
-    ("2007-03-26T02:09:00Z", "2007-03-26T02:15:00Z"),
+    ("2000-03-05T02:14:01Z", "2000-03-05T02:15:36Z"),
+    ("2002-02-23T02:10:18Z", "2002-02-23T02:11:54Z"),
+    ("2002-03-11T02:10:20Z", "2002-03-11T02:11:55Z"),
 ]
 
 OPEN_ON = 0
 true_colour(*BEFORE,
             "12 May 2010, before (Landsat 5): dark patches on the turquoise banks = dense seagrass meadows")
 temperature_difference(HEATWAVE, REFERENCES,
-                       "21 Mar 2011, heatwave: water temperature minus the same week of 2004, 2005 and 2007"
-                       " (red = warmer, 1 C per colour step; east of the bay only)")
+                       "4 Mar 2011, heatwave (Landsat 7): water temperature minus the mean of 3 late-summer days"
+                       " of 2000 and 2002 (red = warmer, 1 C per colour step; thin empty lines = image gaps)")
 true_colour(*AFTER,
             "10 Jul 2014, after (Landsat 8): many dark banks of 2010 are lighter (Faure Sill)")
 green_brightness_change(BEFORE, AFTER,
-                        "2010 to 2014, green brightness over water: brown = brighter (seagrass thinned or lost),"
-                        " teal = darker, white = unchanged")
+                        "2010 to 2014, green brightness over water: brown = brighter in 2014 (seagrass loss,"
+                        " or shallower or clearer water), teal = darker, white = unchanged")
 
 # Studio draws every visible layer, later ones on top and semi-transparent (80 %, 70 %, ...), so two
 # ticked layers blend: open on ONE layer and untick it before ticking the next (hidden layers fetch no
