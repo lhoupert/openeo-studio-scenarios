@@ -1,0 +1,1 @@
+{"collectionId": "landsat-c2-l2", "bands": ["red", "green", "blue"], "time": ["2010-05-12T02:10:00Z", "2010-05-12T02:16:00Z"], "boundingBox": {"west": 113.4, "south": -26.5, "east": 114.4, "north": -25.4}, "cloudCover": 100}

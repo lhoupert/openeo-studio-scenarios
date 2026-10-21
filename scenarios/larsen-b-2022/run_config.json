@@ -1,0 +1,1 @@
+{"collectionId": "sentinel-2-l2a", "bands": ["B04", "B03", "B02"], "time": ["2022-01-18T13:15:00Z", "2022-01-18T13:25:00Z"], "boundingBox": {"west": -62.6, "south": -65.5, "east": -60.8, "north": -64.9}, "cloudCover": 100}
