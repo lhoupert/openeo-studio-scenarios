@@ -1,0 +1,1 @@
+{"collectionId": "modis-09A1-061", "bands": ["sur_refl_b02", "sur_refl_b03", "sur_refl_b04"], "time": ["2013-01-25", "2013-03-15"], "boundingBox": {"west": 2.5, "south": 40.5, "east": 8.5, "north": 44.0}, "cloudCover": 100}

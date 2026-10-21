@@ -1,7 +1,7 @@
 # North Water polynya, winter to early summer 2026
 
 Studio project: <https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar>
-(title "Exp - North Water polynya 2026 Sentinel-1 radar"; it now uses three satellites, the title was
+(title "Exp - North Water polynya 2026 Sentinel-1 radar"; it now uses three kinds of satellite, the title was
 kept so the live project could be updated in place).
 Files: `studio_script.py` (the code pasted in Studio), `seed.js` (seeds the Studio editor with it),
 `run_config.json` (the editor settings used for local tests).
@@ -16,16 +16,22 @@ largest recurring polynya of the Arctic: an area of open water and thin ice insi
 Pack ice drifting south through Nares Strait usually jams into an **ice arch** across the head of Smith
 Sound in winter. South of the arch, winds and currents keep sweeping the new ice away, so the sea stays
 open or covered by thin new ice; the ocean loses a lot of heat there to the very cold air. The arch
-usually breaks down in June or July (Vincent 2019).
+usually breaks down in June or July (Vincent 2019). The arch does not form every winter: since 2007 the
+southern arch failed to consolidate in five seasons up to 2019, and in 2007 no arch formed at all
+(Vincent 2019). Upwelling of warmer Atlantic water also helps keep the polynya open, and since 2007 it has
+stayed largely open even in winters without a southern arch (Vincent 2019; Moore et al. 2023).
 
-![The four layers at map zoom 6](figures/layers_zoom6.png)
+![The four layers at tile zoom 6](figures/layers_zoom6.png)
 
-*The four layers at map zoom 6, rendered on a local copy of the backend (identical to production).*
+*The four layers at tile zoom 6 (about Studio map zoom 5), rendered on a local copy of the backend
+(identical to production). Panel 4 is missing one tile (top right), which failed in the local test only.*
 
-The 2026 dates are read from these Sentinel-1/2 images only, not from ice charts: the edge is absent on
-the 2 Feb radar pass and present on 26 Feb, intact on 9 May, still at the same latitude on the 14 Jun
-radar pass, and broken up on 25 Jun. The edge at ~79.3N is where the arch usually sits
-(79.2 +/- 0.5N in the 1968-1979 ice charts, Vincent 2019).
+The 2026 timing is read from Sentinel-1/2 images only, not from ice charts, including radar passes that
+are not layers here: the edge is absent on the 2 Feb radar pass and present on 26 Feb, intact on 9 May,
+still at the same latitude on the 14 Jun radar pass, and broken up on 25 Jun. The edge, ~79.3N at its
+northernmost point, lies about 50 km north of where the arch usually formed in the satellite record
+(78.9 +/- 0.2N in the 1980s, 78.8 +/- 0.1N in 2000-2006; 79.2 +/- 0.5N in the 1968-1979 ice charts), but not
+as far north as the anomalous 2008 arch, about 100 km north of normal (Vincent 2019).
 
 ## The four layers
 
@@ -37,7 +43,8 @@ radar pass, and broken up on 25 Jun. The edge at ~79.3N is where the arch usuall
 - **How it is made, for non-specialists:**
   1. *One radar picture.* Sentinel-1 sends microwave pulses and measures the echo. Rough surfaces
      (ridged ice, floes, wind-whipped water) send a lot back and look bright; smooth ones (calm water,
-     thin new ice) look dark. Radar sees through cloud and in the polar night. Each pass gives a
+     undisturbed thin new ice) look dark; new ice can also look bright when frost flowers grow on it or
+     when it is rafted (Dierking 2013). Radar sees through cloud and in the polar night. Each pass gives a
      black-and-white picture of how rough the surface is.
   2. *Three comparable pictures.* The appearance also depends on the angle the satellite looks from, so
      the three pictures (22 Mar, 3 Apr, 15 Apr) come from the same Sentinel-1A orbit, which passes over
@@ -59,8 +66,8 @@ radar pass, and broken up on 25 Jun. The edge at ~79.3N is where the arch usuall
      normal and moving things leave rainbow ghosts.)
 - **Limits:** radar images are grainy (speckle), so single pixels show random colour: read large areas.
   Smooth, featureless ice that drifts can still look grey. The three passes span 24 days.
-- **Method:** landfast (static) ice is mapped as the area that stays the same in consecutive SAR images of
-  the same geometry (Karvonen 2018). Li et al. (2018) recommend 3-4 calibrated images at the same
+- **Method:** landfast (static) ice is mapped as the area that stays the same in consecutive daily SAR
+  mosaics (Karvonen 2018). Li et al. (2018) recommend 3-4 calibrated images at the same
   incidence angle with a maximum separation of less than 20 days; this triplet spans 24 days and shows the
   comparison as colour instead of computing it, so it is a visual reading of that principle, not their
   automated product (over 24 days, grey is a stricter test of immobility). One orbit removes the HH
@@ -80,13 +87,13 @@ radar pass, and broken up on 25 Jun. The edge at ~79.3N is where the arch usuall
 
 - **What you see:** a warm tongue starting at the arch (~79.3N) and filling the polynya, with the same
   shape as layer 1's coloured area: **yellow** (about -2 C, the freezing point of sea water) = open water,
-  in southern Smith Sound; **orange** (-5 C), **red** (-13 C) and **purple** (-17 C) = thin new ice (the
+  south of Smith Sound (about 77.2-78.2N); **orange** (-5 C), **red** (-13 C) and **purple** (-17 C) = thin new ice (the
   thinner, the warmer); **blue** (colder than about -23 C) = thick pack ice and land. Sunlit Ellesmere
   slopes show as purple-red streaks on land; the swath leaves the north-west and south-east corners blank.
 - **How it is made:** Landsat 9 thermal band (`landsat-c2-l2`, `lwir11`, 100 m), scenes of path 39
   rows 2-5 on 9 Apr 18:02-18:03 UTC, converted to kelvin by the backend and coloured with a fixed
   temperature scale.
-- **Method:** thermal infrared is how the arch and the North Water are mapped (Vincent 2019; Preußer et
+- **Method:** thermal infrared is how the arch's formation is followed through the polar night (Vincent 2019; Preußer et
   al. 2015, thin ice from MODIS ice-surface temperature), and a warm surface in the cold season marks
   thin ice (Yu & Rothrock 1996). Landsat Collection 2 surface temperature comes from per-pixel atmospheric
   compensation of the thermal band with ancillary emissivity (Cook et al. 2014); a comparable
@@ -98,14 +105,14 @@ radar pass, and broken up on 25 Jun. The edge at ~79.3N is where the arch usuall
 ### 3. 9 May 2026: true colour, the arch and the open polynya (opens here)
 
 - **What you see:** a sharp white/black edge at ~79.3N from ~75W to ~71.5W: the arch. South of it the
-  polynya is **black** down to ~77N, with grey thin-ice filaments in southern Smith Sound; Kane Basin and
+  polynya is **black** down to ~77N, with grey thin-ice filaments south of Smith Sound (about 77-78N); Kane Basin and
   the land are white. Black means open water **or** very thin new ice: they look alike in visible light
   (a same-day Landsat temperature reading just under the arch, -3.8 C, suggests thin new ice there).
 - **How it is made:** Sentinel-2B true colour (`sentinel-2-l2a`, bands B04/B03/B02, orbit 127,
   ~18:19 UTC), reflectance 0-1 stretched linearly to 0-255. Pixels with no data are hidden (many
   Sentinel-2 files on Planetary Computer carry no no-data flag, which would show as opaque black).
-- **Method:** visible imagery is the basis of the 40-year arch record and is best for the break-down
-  (Vincent 2019). Brightness rises from open water through thin-ice types to snow-covered ice (all-wave
+- **Method:** the 40-year arch record uses AVHRR visible and thermal-infrared images: thermal infrared for
+  the formation in the polar night, visible light for the break-down, which it shows best (Vincent 2019). Brightness rises from open water through thin-ice types to snow-covered ice (all-wave
   albedo 0.07 for open water to 0.87 for thick snow-covered ice under cloud, Brandt et al. 2005: an
   ordering, not a threshold).
 
@@ -114,13 +121,14 @@ radar pass, and broken up on 25 Jun. The edge at ~79.3N is where the arch usuall
 - **What you see:** the arch-shaped edge is gone; open water (black) now reaches north of where it was,
   blue-grey melting floes lie in the former polynya and in Kane Basin, and the coasts are snow-free brown.
 - **How it is made:** as layer 3, Sentinel-2A, 25 Jun ~18:19 UTC.
-- **Method:** as layer 3; melt ponds lower ice albedo from 0.8-0.9 to about 0.4 (Perovich et al. 2002),
-  which is why melting floes look blue-grey.
+- **Method:** as layer 3; snow melt and then melt ponds lower the albedo of Arctic multiyear ice from
+  0.8-0.9 in April to about 0.4 by the end of July (Perovich et al. 2002), which is why melting floes look
+  blue-grey.
 
 ## Choices and limits
 
 - The first version had 8 single-date radar frames every 24 days; they repeated four stages and were
-  replaced by four layers from three satellites and three physical quantities (radar roughness change,
+  replaced by four layers from three kinds of satellite and three physical quantities (radar roughness change,
   temperature, visible colour).
 - Each radar pass is two slices that meet just north of a line from 76.0N 66.7W to 77.3N 82.1W (northern
   Baffin Bay): a thin gap can show along it, and zoomed in a strip up to ~15 km wide just north of it can

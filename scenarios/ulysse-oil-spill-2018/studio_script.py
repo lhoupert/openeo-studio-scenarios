@@ -6,8 +6,8 @@ On 7 Oct 2018 the ferry Ulysse hit the container ship CSL Virginia, anchored abo
 Four layers (open one at a time):
 1. 9 Oct, radar: the slick is a dark line about 60 km long, starting at the ships (bright dot).
 2. 9 Oct, optical, 7 hours earlier: the same slick as a thin bright streak (zoom in on the ships).
-3. 13 Oct, radar with automatic detection: orange = suspected slicks; some are false alarms.
-4. 19 Oct, radar: dark fragments off the Var coast, probably oil but not confirmed.
+3. 13 Oct, radar with automatic detection: orange = patches flagged as darker than their surroundings. Those north-west of the ships are probably the drifting slick; most orange along the coasts is probably sheltered water, not oil.
+4. 19 Oct, radar: dark fragments off the Var coast, possibly oil (light wind, not confirmed).
 
 How to read the radar: oil calms the sea surface, so the radar sees it as a dark patch; rough sea is grey and ships are bright dots. Calm water with little wind also looks dark, so not every dark patch is oil.
 
@@ -129,11 +129,12 @@ optical_layer(
 )
 dark_spot_layer(
     "2018-10-13T05:35:40Z", "2018-10-13T05:36:30Z",
-    "13 Oct 2018, radar + automatic detection: orange = suspected slicks (some are false alarms)",
+    "13 Oct 2018, radar + automatic detection: orange = flagged dark patches (those along the coasts are"
+    " probably not oil)",
 )
 radar_layer(
     "2018-10-19T17:26:00Z", "2018-10-19T17:36:00Z",
-    "19 Oct 2018, radar: dark fragments off the Var coast (probably oil, not confirmed)",
+    "19 Oct 2018, radar: dark fragments off the Var coast (oil possible, not confirmed)",
     colormap=grey_ramp(-30, -16),
 )
 

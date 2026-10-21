@@ -1,15 +1,15 @@
 """
 Exp - North Water polynya 2026 Sentinel-1 radar
 
-The North Water, between Ellesmere Island (Canada) and Greenland, is the largest polynya of the Arctic: an area that stays open or covered by thin ice in the middle of the winter sea ice. Each winter, ice coming from the north jams in the strait and forms an "ice arch". South of it, wind and currents keep pushing the ice away. The arch breaks up in early summer.
+The North Water, between Ellesmere Island (Canada) and Greenland, is the largest polynya of the Arctic: an area that stays open or covered by thin ice in the middle of the winter sea ice. In most winters, ice coming from the north jams in the strait and forms an "ice arch". South of it, wind and currents keep pushing the ice away. The arch breaks up in early summer.
 
 Four layers of 2026 (open one at a time):
-1. 22 Mar-15 Apr, radar change: grey = ice that did not move (jammed north of the arch); colours = the polynya, where the surface keeps changing.
-2. 9 Apr, surface temperature: the polynya is the warm tongue south of the arch; blue = cold, thick ice and land.
+1. 22 Mar-15 Apr, radar change: grey = unchanged: ice that did not move (jammed north of the arch) and land; colours = the polynya, where the surface keeps changing.
+2. 9 Apr, surface temperature: the polynya is the warm tongue south of the arch; blue = cold, thick ice and land (sunlit slopes on land also show warm colours).
 3. 9 May, true colour: the arch is still there; black = open water or very thin ice.
 4. 25 Jun, true colour: the arch has broken up.
 
-The dates come from these images only.
+The arch's 2026 timing is read from satellite images, not from ice charts.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/north-water-polynya-2026/README.md
 
@@ -110,10 +110,10 @@ def true_colour(start, end, name):
 
 OPEN_ON = 2
 radar_change(["2026-03-22", "2026-04-03", "2026-04-15"],
-             "22 Mar-15 Apr 2026, radar change: grey = ice that did not move (north of the arch),"
-             " colour = the polynya, where the surface keeps changing")
+             "22 Mar-15 Apr 2026, radar change: grey = unchanged: ice that did not move (north of the arch)"
+             " and land, colour = the polynya, where the surface keeps changing")
 surface_temperature("2026-04-09T18:00:00Z", "2026-04-09T18:06:00Z",
-                    "9 Apr 2026, surface temperature: yellow = open water, orange to purple = thin new ice,"
+                    "9 Apr 2026, surface temperature: yellow = open water, orange to purple at sea = thin new ice,"
                     " blue = thick ice and land")
 true_colour("2026-05-09T18:15:00Z", "2026-05-09T18:25:00Z",
             "9 May 2026, true colour: the ice arch, with the dark polynya south of it"
