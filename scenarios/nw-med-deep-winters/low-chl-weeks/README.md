@@ -5,9 +5,9 @@ Studio project: <https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-20
 The background, the evidence for each winter and the method shared by the four projects are in the
 [scenario README](../README.md).
 
-![The nine layers at map zoom 7](../figures/low-chl-weeks_z7.png)
+![The nine layers at tile zoom 7](../figures/low-chl-weeks_z7.png)
 
-*The nine layers (2005, 2006, 2007; 2009, 2010, 2011; 2012, 2013, 2018) from production tiles at map zoom 7;
+*The nine layers (2005, 2006, 2007; 2009, 2010, 2011; 2012, 2013, 2018) from production tiles at tile zoom 7;
 yellow box 2-9E 39.5-44.5N, red circle = LION mooring.*
 
 ## What it shows
@@ -30,7 +30,7 @@ between winters; 2007 is the winter without deep convection.
 
 ## Results
 
-Area with at least 3 weeks in the patch (production tiles at map zoom 7): 2006 37,800 km² > 2013 32,100 >
+Area with at least 3 weeks in the patch (production tiles at tile zoom 7): 2006 37,800 km² > 2013 32,100 >
 2005 21,000 > 2010 14,300 > 2009 13,600 > 2012 11,900 > 2018 6,900 > 2011 4,400 >> 2007 0. The 2013 core holds
 5-7 weeks around LION (mean 4.6 weeks, the highest of all winters).
 

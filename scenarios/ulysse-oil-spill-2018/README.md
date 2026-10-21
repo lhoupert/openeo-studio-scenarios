@@ -28,7 +28,8 @@ small (centimetre) waves that wind raises on the sea scatter part of the pulse b
 grey. Oil damps those small waves, so the sea under a slick is smoother and sends less back: a slick is
 a **dark patch with sharp edges**. Ships and platforms are **bright dots**.
 
-This only works at moderate wind, from about 1.5-3 m/s up to 6-10 m/s (Fingas & Brown 2018). Several
+This only works at moderate wind, from about 1.5-3 m/s up to 6-10 m/s (Fingas & Brown 2018; Topouzelis
+2008). Several
 things look like oil (the "look-alikes"; Topouzelis 2008):
 
 - calm water where there is little wind (broad, diffuse dark areas);
@@ -36,7 +37,8 @@ things look like oil (the "look-alikes"; Topouzelis 2008):
 - natural surface films, drawn into lines and spirals by eddies (Gade et al. 2013; Munk 2001).
 
 One radar image cannot tell oil from a natural film, which is why dark features away from the ships are
-labelled "oil possible" (Alpers et al. 2017 question detections that were not checked by aircraft or on
+labelled "oil possible" (Alpers et al. 2017 question the high success rates claimed for
+single-polarisation radar detection, because its training images were rarely checked by aircraft or on
 site). Below about -22 dB the radar can be at its instrument noise floor (about -30 to -22 dB,
 Kellndorfer et al. 2022): there, darker grey means little or no measurable return, not "more oil".
 
@@ -57,13 +59,15 @@ Kellndorfer et al. 2022): there, darker grey means little or no measurable retur
 
 - **What you see:** zoomed in on the ships (map zoom 11 or more), a dashed bright streak about 20 km
   long running west-north-west from the ships, on the path the radar shows dark 7 hours later. At the
-  opening zoom the layer is a white and dark-grey box: zoom in.
+  opening zoom the layer is a box of white (Corsica, cloud, haze), grey and black: the black wedge in the
+  south-east corner is outside the satellite's swath (no data), and the other black patches are very dark
+  water, not a sign of oil. Zoom in.
 
   ![Radar, optical and detection layers at zoom 11 around the ships](figures/ships_zoom11.png)
 
 - **How it is made:** one Sentinel-2A image (`sentinel-2-l2a`, tile 32TNN, 9 Oct 10:20 UTC), red band
-  B04 (665 nm, 10 m), grey from reflectance 0 (black) to 0.005 (white). Open sea is about 0.0016 and the
-  streak about 0.006; land, cloud and hazy water are white. Only one tile is used, because the
+  B04 (665 nm, 10 m), grey from reflectance 0 (black) to 0.005 (white). Open sea near the ships is about
+  0.0016 and the streak about 0.006; land, cloud and hazy water are white. Only one tile is used, because the
   atmospheric correction (Sen2Cor) treats each tile on its own and over the sea neighbouring tiles differ
   by up to 8x, which leaves seams. Faint diagonal bands follow the Sentinel-2 detector footprints.
 - **Method:** presence or absence of the slick from its contrast with the water around it, the standard
@@ -96,12 +100,14 @@ Kellndorfer et al. 2022): there, darker grey means little or no measurable retur
 
 ### 4. 19 Oct 2018, 17:31 UTC: radar, fragments off the Var
 
-- **What you see:** sharp-edged dark fragments 30-60 km off the Var (42.85-43.05N, 6.6-7.5E), three days
+- **What you see:** sharp-edged dark fragments about 10-75 km off the Var coast (42.85-43.05N, 6.6-7.5E), three days
   after the first oil beached ("oil possible"). The broad, diffuse dark patches along the coast are
   probably low wind (look-alike), and thin curls further north are surface films (natural or oil) drawn
   out by eddies.
 - **How it is made:** as layer 1, but with its own grey ramp, -30 dB black to -16 dB white, because this
-  light-wind scene is 5-7 dB darker overall (median -22.2 dB, against -14.7 dB on 9 Oct). Much of it is
+  light-wind scene is much darker: over the sea its median is about -22.5 dB, against about -19 dB for
+  the 13 Oct pass over the same stretch of sea and about -16 dB on 9 Oct, over the sea further east (land
+  dropped as pixels above -12 dB, on a 200 m grid). Much of it is
   near the radar noise floor, so its darkest greys are not quantitative.
 - **Method:** as layer 1. Drift context: surface waters flowing north on both sides of Corsica join in
   the Gulf of Genoa to form the Ligurian (Northern) Current, which follows the coast of Provence (Millot
@@ -111,13 +117,18 @@ Kellndorfer et al. 2022): there, darker grey means little or no measurable retur
 
 - Layers dropped from the first version: the 8 Oct (two passes), 14 Oct and 20 Oct radar images, which
   repeated what layers 1, 3 and 4 show.
-- No wind data were checked (ERA5 on Planetary Computer is Zarr only, which the backend cannot read):
-  every "low wind" or "wind shadow" reading comes from the shape and level of the backscatter.
+- Wind was not used to make the layers. A spot check of ERA5 hourly 10 m winds (about 30 km grid, via the
+  Open-Meteo archive; Hersbach et al. 2020) gave, on 9 Oct at 17 UTC, about 1 m/s in the Gulf of Genoa
+  (44.0N 9.0E) and about 3 m/s south-east of the ships (43.0N 9.7E); on 13 Oct at 05-06 UTC, about 2 m/s at
+  the fragments (43.7N 8.8E), the low end of the wind window, where look-alikes multiply; on 19 Oct at
+  17 UTC, about 3.4 m/s off the Var (43.0N 7.0E). ERA5 cannot be a Studio layer (Zarr only on Planetary
+  Computer) and is too coarse to resolve single calm patches, so the "low wind" and "wind shadow" readings
+  here come from the shape and level of the backscatter.
 - The 13 Oct fragments are linked to the Ulysse spill by position, sharp edges and timing; no dated
   official position for 13 Oct was found.
 - `sentinel-1-rtc` is documented by Planetary Computer as needing an account to read; anonymous access
   works today. If that changes, layers 1, 3 and 4 stop rendering; layer 2 does not.
-- Cold tiles at map zoom 6 can take 35-40 s (many radar slices per tile).
+- Cold tiles at tile zoom 6 can take 35-40 s (many radar slices per tile).
 
 ## Data
 
@@ -142,6 +153,7 @@ Method (every DOI checked on Crossref):
 - Babagolimatikolaei (2025), J. Ocean Eng. Sci. 10, 386-394, <https://doi.org/10.1016/j.joes.2022.05.029>
 - Fingas & Brown (2018), Sensors 18, 91, <https://doi.org/10.3390/s18010091>
 - Gade et al. (2013), Oceanography 26(2), 138-149, <https://doi.org/10.5670/oceanog.2013.39>
+- Hersbach et al. (2020), Q. J. R. Meteorol. Soc. 146, 1999-2049, <https://doi.org/10.1002/qj.3803>
 - Hu et al. (2021), J. Remote Sens. 2021, 9141902, <https://doi.org/10.34133/2021/9141902>
 - Jackson & Alpers (2010), J. Geophys. Res. 115, C09019, <https://doi.org/10.1029/2009JC006037>
 - Kellndorfer et al. (2022), Sci. Data 9, 73, <https://doi.org/10.1038/s41597-022-01189-6>

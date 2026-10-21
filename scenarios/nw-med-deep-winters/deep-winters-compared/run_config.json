@@ -1,1 +1,1 @@
-{"collectionId": "modis-09A1-061", "bands": ["sur_refl_b02", "sur_refl_b03", "sur_refl_b04"], "time": ["2013-02-18", "2013-02-19"], "boundingBox": {"west": 2.5, "south": 40.5, "east": 8.5, "north": 44.0}, "cloudCover": 100}
+{"collectionId": "modis-09A1-061", "bands": ["sur_refl_b02", "sur_refl_b03", "sur_refl_b04"], "time": ["2013-02-18", "2013-02-19"], "boundingBox": {"west": -0.5383771953402459, "south": 35.290838378379135, "east": 19.79969249933825, "north": 48.6072417725251}, "cloudCover": 100}

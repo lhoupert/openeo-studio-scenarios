@@ -17,8 +17,8 @@ previous one: ticked layers blend).
 Then go back in time.
 
 1. **22 Mar-15 Apr, radar change**
-   - **Say:** "How do we know the ice north of the edge is stuck? Radar works in the polar night. Here we
-     stack three radar images taken 12 days apart, as red, green and blue."
+   - **Say:** "How do we know the ice north of the edge is stuck? Radar sees through cloud, day or night.
+     Here we stack three radar images from the same orbit, taken 12 days apart, as red, green and blue."
    - **Show:** "Grey means identical on all three dates: the ice didn't move. Colour means the surface
      changed, which is the polynya. The line between grey and colour is the arch."
 2. **9 Apr, surface temperature**
@@ -27,14 +27,16 @@ Then go back in time.
      thin new ice; blue is thick ice and land below about -23 C.
    - **Say:** "Open water in the middle of an Arctic winter loses heat to the air, far more than the ice
      around it."
-3. **9 May, true colour:** back to the opening picture, the same arch at the same place, now seen in
-   daylight.
+3. **9 May, true colour:** back to the opening picture: the same arch at the same place, now in true
+   colour.
 4. **25 Jun, true colour**
-   - **Show:** the edge is gone, open water reaches further north and floes drift south.
-   - **Say:** "The arch breaks up every summer, usually in June or July."
+   - **Show:** the edge is gone, open water reaches further north, and loose melting floes lie in Kane Basin
+     and the former polynya.
+   - **Say:** "When it forms, the arch usually breaks up in June or July."
 
-**Take-home:** three satellites, each answering a different question: is the ice moving (radar)? Is the
-surface warm (thermal)? What does it look like (optical)? The 2026 dates come from these images alone.
+**Take-home:** three kinds of satellite image, each answering a different question: is the ice moving
+(radar)? Is the surface warm (thermal)? What does it look like (optical)? The 2026 timing comes from
+satellite images alone.
 
 ## Practical tips
 

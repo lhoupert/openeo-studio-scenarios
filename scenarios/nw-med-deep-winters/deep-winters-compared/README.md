@@ -19,7 +19,7 @@ algorithm and the same class edges, so the horizontal extent of the mixed area c
 
 ## The nine layers
 
-Areas in km² (< 0.25 / < 0.15 proxy classes), counted on map-zoom-7 tiles over 2-9E 39.5-44.5N. "Clear" is
+Areas in km² (< 0.25 / < 0.15 proxy classes), counted on tile-zoom-7 tiles over 2-9E 39.5-44.5N. "Clear" is
 the share of the ocean in 2.5-8.5E 40.5-44N that the MODIS state QA flags as clear.
 
 | # | Winter | Composite | Convection (source) | What you see | Proxy area | Clear |

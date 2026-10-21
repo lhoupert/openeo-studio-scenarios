@@ -93,10 +93,10 @@ The colours are classes of a chlorophyll **proxy**, the same in all projects (ex
   necessarily a bloom.
 - Each layer is an **8-day composite**: every pixel is the best view of that pixel over the 8 days, so
   neighbouring pixels can come from different days, and a date means "during that week".
-- Studio shows tiles from map zoom 6; open one layer at a time (visible layers stack semi-transparent).
+- Studio draws the layers from about map zoom 4.5 (tile zoom 6); open one layer at a time (visible layers stack semi-transparent).
 
 **The proxy against Table 4 of Houpert et al. (2016)** (areas in km², < 0.25 / < 0.15; proxy areas counted on
-map-zoom-7 tiles over 2-9E 39.5-44.5N, in the composites of [deep-winters-compared](deep-winters-compared/)):
+tile-zoom-7 tiles over 2-9E 39.5-44.5N, in the composites of [deep-winters-compared](deep-winters-compared/)):
 
 | Winter (composite) | Proxy | Houpert et al. 2016, Table 4, p. 8151 |
 |---|---|---|

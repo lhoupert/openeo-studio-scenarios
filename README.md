@@ -8,7 +8,7 @@ references. The Studio project carries a short description; the scenario README 
 | Scenario | Story | Layers | Studio project |
 |---|---|---|---|
 | [ulysse-oil-spill-2018](scenarios/ulysse-oil-spill-2018/) | Oil spill after the Ulysse / CSL Virginia collision off Cap Corse, Oct 2018 | Sentinel-1 radar (x2), Sentinel-2 optical, radar dark-spot detection | [open](https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar) |
-| [north-water-polynya-2026](scenarios/north-water-polynya-2026/) | The North Water polynya and its ice arch, Jan-Jun 2026 | Sentinel-1 radar change, Landsat 9 temperature, Sentinel-2 true colour (x2) | [open](https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar) |
+| [north-water-polynya-2026](scenarios/north-water-polynya-2026/) | The North Water polynya and its ice arch, Mar-Jun 2026 | Sentinel-1 radar change, Landsat 9 temperature, Sentinel-2 true colour (x2) | [open](https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar) |
 | [nw-med-deep-winters](scenarios/nw-med-deep-winters/) | Winter deep convection in the Gulf of Lion and the bloom that follows, 2005-2026 | MODIS-Aqua 8-day chlorophyll proxy, four projects of 9-11 layers | [2013](https://studio.mpc.ds.io/editor/exp-nw-med-deep-convection-2013-modis-8-day-sequence), [compared](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-compared-modis-patch), [weeks](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-low-chl-weeks-modis), [recent](https://studio.mpc.ds.io/editor/exp-nw-med-recent-winters-2019-2026-vs-2013-and-2018-modis-patch) |
 
 ## What is in a scenario
@@ -53,8 +53,9 @@ The arguments for each scenario are its title and the values in its `run_config.
 
 ## Backend notes (titiler-openeo, commit c9b6ee3, October 2026)
 
-- Each layer is computed tile by tile (256 x 256 px, from map zoom 6); hidden layers fetch nothing until
-  ticked, and visible layers stack at decreasing opacity (0.8, 0.7, ...), so open one at a time.
+- Each layer is computed tile by tile (256 x 256 px tiles, from tile zoom 6, which Studio reaches at map
+  zoom 4.5); hidden layers fetch nothing until ticked, and visible layers stack at decreasing opacity
+  (0.8, 0.7, ...), so open one at a time.
 - Sentinel-1 GRD: `sar_backscatter` supports `beta0`, `sigma0-ellipsoid` and `gamma0-ellipsoid` only
   (always pass `coefficient`); noise removal clamps the darkest pixels to 0, so floor the values before
   `log`. Filter on `platform` and `sar:instrument_mode` and use a time window of the pass time +/- 5 min to

@@ -5,10 +5,10 @@ Studio project: <https://studio.mpc.ds.io/editor/exp-nw-med-recent-winters-2019-
 The background, the colour scale and the method shared by the four projects are in the
 [scenario README](../README.md). For 2005-2012 see [deep-winters-compared](../deep-winters-compared/).
 
-![The ten layers at map zoom 7](../figures/recent-winters_z7.png)
+![The ten layers at tile zoom 7](../figures/recent-winters_z7.png)
 
 *The ten layers in project order (top: 2013, 2018, 2019, 2023, 2022; bottom: 2021, 2026, 2025, 2024, 2020),
-from production tiles at map zoom 7; white circle = LION mooring; grey = cloud or land.*
+from production tiles at tile zoom 7; white circle = LION mooring; grey = cloud or land.*
 
 ## What it shows
 

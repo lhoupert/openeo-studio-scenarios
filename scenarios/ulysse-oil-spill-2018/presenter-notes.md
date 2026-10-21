@@ -17,7 +17,7 @@ Can satellites follow the slick?"
    - **Say:** "Radar measures how rough the sea is. Oil calms the small waves, so a slick shows up dark.
      Radar works through cloud and at night."
    - **Then point to** the big diffuse dark patch south-east of the ships: "Not every dark patch is oil.
-     That one is calm water with no wind. Sharp edges are the clue."
+     That one is probably calm water with little wind: its edges are soft, the slick's are sharp."
 2. **9 Oct, optical, 7 hours earlier**
    - **Show:** zoom right in on the ships, to map zoom 11 or more; the streak is invisible when zoomed out.
      A dashed bright streak leaves the ships along the same path.
@@ -30,12 +30,14 @@ Can satellites follow the slick?"
      also flags the coasts, where land shelters the sea from the wind. Automation sorts the candidates; a
      person still has to judge them."
 4. **19 Oct, off the Var**
-   - **Show:** pan west to the sea off Saint-Tropez. Sharp dark fragments lie 30-60 km offshore.
-   - **Say:** "Oil had been reaching the Var beaches since 16 Oct. These are probably more of it, but in
-     light wind radar alone can't confirm it."
+   - **Show:** pan west to the sea off Saint-Tropez. Sharp dark fragments lie offshore, up to about 75 km
+     out.
+   - **Say:** "Oil had been reaching the Var beaches since 16 Oct. Some of these may be more of it, but in
+     light wind radar alone can't tell oil from natural films."
 
-**Take-home:** radar followed the spill for two weeks, whatever the weather; optical imagery confirmed it;
-automatic detection helps but needs checking.
+**Take-home:** radar sees through cloud and at night, and followed the spill for 10 days whenever there was
+enough wind; one optical image confirmed the slick near the ships; automatic detection helps but needs
+checking.
 
 ## Practical tips
 
