@@ -1,9 +1,7 @@
 """
 Exp - Ulysse CSL Virginia oil spill Oct 2018 Sentinel-1 radar
 
-On 7 Oct 2018 the ferry Ulysse hit the container ship CSL Virginia, anchored about 28 km north of
-Cap Corse, and fuel leaked into the sea. The oil drifted north-west, broke up, and reached the
-beaches of the Var from 16 Oct.
+On 7 Oct 2018 the ferry Ulysse hit the container ship CSL Virginia, anchored about 28 km north of Cap Corse, and fuel leaked into the sea. The oil drifted north-west, broke up, and reached the beaches of the Var from 16 Oct.
 
 Four layers (open one at a time):
 1. 9 Oct, radar: the slick is a dark line about 60 km long, starting at the ships (bright dot).
@@ -11,13 +9,11 @@ Four layers (open one at a time):
 3. 13 Oct, radar with automatic detection: orange = suspected slicks; some are false alarms.
 4. 19 Oct, radar: dark fragments off the Var coast, probably oil but not confirmed.
 
-How to read the radar: oil calms the sea surface, so the radar sees it as a dark patch; rough sea is
-grey and ships are bright dots. Calm water with little wind also looks dark, so not every dark patch
-is oil.
+How to read the radar: oil calms the sea surface, so the radar sees it as a dark patch; rough sea is grey and ships are bright dots. Calm water with little wind also looks dark, so not every dark patch is oil.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/ulysse-oil-spill-2018/README.md
-Contains modified Copernicus Sentinel data 2018 (RTC processing by Catalyst, CC BY 4.0), via
-Microsoft Planetary Computer. Land mask: GLOBE (NOAA NGDC).
+
+Contains modified Copernicus Sentinel data 2018 (RTC processing by Catalyst, CC BY 4.0), via Microsoft Planetary Computer. Land mask: GLOBE (NOAA NGDC).
 """
 
 

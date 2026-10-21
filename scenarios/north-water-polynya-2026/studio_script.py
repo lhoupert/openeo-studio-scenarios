@@ -1,23 +1,19 @@
 """
 Exp - North Water polynya 2026 Sentinel-1 radar
 
-The North Water, between Ellesmere Island (Canada) and Greenland, is the largest polynya of the Arctic:
-an area that stays open or covered by thin ice in the middle of the winter sea ice. Each winter, ice
-coming from the north jams in the strait and forms an "ice arch". South of it, wind and currents keep
-pushing the ice away. The arch breaks up in early summer.
+The North Water, between Ellesmere Island (Canada) and Greenland, is the largest polynya of the Arctic: an area that stays open or covered by thin ice in the middle of the winter sea ice. Each winter, ice coming from the north jams in the strait and forms an "ice arch". South of it, wind and currents keep pushing the ice away. The arch breaks up in early summer.
 
 Four layers of 2026 (open one at a time):
-1. 22 Mar-15 Apr, radar change: grey = ice that did not move (jammed north of the arch);
-   colours = the polynya, where the surface keeps changing.
-2. 9 Apr, surface temperature: the polynya is the warm tongue south of the arch;
-   blue = cold, thick ice and land.
+1. 22 Mar-15 Apr, radar change: grey = ice that did not move (jammed north of the arch); colours = the polynya, where the surface keeps changing.
+2. 9 Apr, surface temperature: the polynya is the warm tongue south of the arch; blue = cold, thick ice and land.
 3. 9 May, true colour: the arch is still there; black = open water or very thin ice.
 4. 25 Jun, true colour: the arch has broken up.
+
 The dates come from these images only.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/north-water-polynya-2026/README.md
-Contains modified Copernicus Sentinel data 2026, via Microsoft Planetary Computer. Landsat data
-courtesy of the U.S. Geological Survey.
+
+Contains modified Copernicus Sentinel data 2026, via Microsoft Planetary Computer. Landsat data courtesy of the U.S. Geological Survey.
 """
 
 
