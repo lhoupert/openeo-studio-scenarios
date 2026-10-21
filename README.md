@@ -10,8 +10,9 @@ references. The Studio project carries a short description; the scenario README 
 | [ulysse-oil-spill-2018](scenarios/ulysse-oil-spill-2018/) | Oil spill after the Ulysse / CSL Virginia collision off Cap Corse, Oct 2018 | Sentinel-1 radar (x2), Sentinel-2 optical, radar dark-spot detection | [open](https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar) |
 | [north-water-polynya-2026](scenarios/north-water-polynya-2026/) | The North Water polynya and its ice arch, Jan-Jun 2026 | Sentinel-1 radar change, Landsat 9 temperature, Sentinel-2 true colour (x2) | [open](https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar) |
 
-To present them, see the [presenter notes](presenter-notes.md): which layer to open with, what to show and
-what to say, step by step.
+To present a scenario, see its presenter notes ([Ulysse](scenarios/ulysse-oil-spill-2018/presenter-notes.md),
+[North Water](scenarios/north-water-polynya-2026/presenter-notes.md)): which layer to open with, what to show
+and what to say, step by step.
 
 ## What is in a scenario
 
@@ -24,6 +25,8 @@ what to say, step by step.
 - `seed.js`: the same script and editor settings as a snippet for the browser console (made with
   `tools/make_js.py`).
 - `run_config.json`: the editor settings (collection, bands, time, bounding box) used for local tests.
+- `presenter-notes.md`: a 2-3 minute script for presenting the scenario (opening layer, what to show and
+  say at each step).
 - `figures/`: the layers rendered tile by tile.
 
 ## Create or update a Studio project

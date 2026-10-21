@@ -5,6 +5,7 @@ Studio project: <https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-se
 kept so the live project could be updated in place).
 Files: `studio_script.py` (the code pasted in Studio), `seed.js` (seeds the Studio editor with it),
 `run_config.json` (the editor settings used for local tests).
+To present it: [presenter notes](presenter-notes.md).
 
 ## The North Water and its ice arch
 

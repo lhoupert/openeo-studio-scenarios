@@ -4,6 +4,7 @@ Studio project: <https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spi
 (title "Exp - Ulysse CSL Virginia oil spill Oct 2018 Sentinel-1 radar").
 Files: `studio_script.py` (the code pasted in Studio), `seed.js` (seeds the Studio editor with it),
 `run_config.json` (the editor settings used for local tests).
+To present it: [presenter notes](presenter-notes.md).
 
 ## The event
 
