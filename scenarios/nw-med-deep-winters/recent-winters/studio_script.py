@@ -1,57 +1,17 @@
 """
 Exp - NW Med recent winters 2019-2026 vs 2013 and 2018 MODIS patch
 
-Port of review/new-projects/exp-nw-med-convection-between-winters-modis.py
-to plain load_collection (titiler-openeo#473): same composites, labels and layer order.
-That load_stac version is not built.
-For 2005-2012 see "Exp - NW Med deep winters 2005-2018 compared MODIS patch".
+In winters with deep convection, cold northerly winds mix the Gulf of Lion from the surface down to 1000 m or more. The mixing carries the surface algae (phytoplankton) down into the dark, so from space the mixed area looks like a patch of very low chlorophyll. Since 2014 the winter mixing has mostly stayed much shallower.
 
-One MODIS-Aqua 8-day composite per winter, at that winter's largest (or clearest) low-chl extent, so
-the convection area can be compared between years with one sensor and one algorithm. Ordered from the
-strongest to the weakest winter. Class = LION mooring Dec-Mar maximum mixed-layer depth across criteria
-(workflow/lion_mld_v2.txt) and the in-region low-chl area (41.3-43.2N, 3-7E; review/checks/patch_series.txt).
-- bottom-reaching: 2013 (LION ~2300 m)
-- deep: 2018 (LION 1500-1750 m)
-- moderate: 2019, 2021, 2022, 2023 (LION ~500-1090 m at 0.03-0.05 degC or with the Houpert criterion;
-  2021 only once the QC-flagged 194 m and 472 m sensors are masked), each with a satellite low-chl patch
-- weak: 2025, 2026 (LION 400-600 m, the 2014-2017 range), no or marginal patch
-- none: 2024, 2020 (LION <= 300-350 m)
-Picks: the composite with the largest in-region low-chl area of January-March when it is clear enough
-(2013, 2018, 2022, 2021, 2026); 2019 2-9 Feb (99 % clear) instead of 25 Jan (80 %, speckled core);
-2023 10-17 Feb (99 % clear, 5 % of the core QA-flagged) instead of 26 Feb (88 %, 24 % flagged); for the
-no-patch winters the clearest composite near the LION maximum (2024 10-17 Feb rather than 26 Feb-5 Mar,
-whose ~2,400 km2 low-chl area lies offshore at ~41.6N 6.0E). Items 2024-03-05..2025-06-10 have an empty
-`platform` on MPC (2025 here): selecting Aqua by item id is unaffected.
-Areas depend on the grid and the method (up to ~20 % for one year, more between years), so they are not
-written into the layer names.
+One satellite image per winter (the clearest view of 8 days), taken when the patch was largest, or the clearest week when there was none: 2013 and 2018 for reference, then 2019-2026, from the strongest winter to the weakest. Each label gives the deepest mixing estimated from the LION mooring, in the middle of the gulf. The map opens on 2013; open one layer at a time.
 
-Data: MODIS-Aqua 8-day surface reflectance (modis-09A1-061, 500 m cloud-optimized GeoTIFFs), read with
-plain load_collection: since sentinel-hub/titiler-openeo#473 (deployed on openeo.mpc.ds.io on
-20 Oct 2026) items with "datetime": null are keyed by their start_datetime.
-- temporal_extent = [first day of the composite, that day + 1]: the STAC search returns every item that
-  overlaps the interval, end included, so [start, start + 8 days] would return two composites.
-- The composite's tiles h18v04 (40-50N) and h18v05 (30-40N) are mosaicked into one time step, so the
-  39.5-40N strip has data (the load_stac projects stop at 40N).
-- Aqua only, selected by item id (id starts_with "MYD09A1"), never by platform: MPC items of
-  5 Mar 2024-10 Jun 2025 have platform "". Terra is not mixed in: over this sea its proxy gives 2-4x
-  larger low-chl areas than Aqua (collections-v2/scout/collections.md, "Terra vs Aqua").
-- If production rejects the id filter, delete the `properties=` line: Aqua sorts before Terra in each
-  time step and fills every pixel, so the map is unchanged (collections-v2/scout/backend.md, idiom 1).
+What to look for: the patch shrinks with the mixing depth, from a large patch in 2013 to a smaller one in 2018, small ones in the moderate winters 2019-2023, and almost nothing in 2024-2026 and 2020.
 
-chl proxy, UNCALIBRATED: the OC3M polynomial (O'Reilly et al., 2000) on the 469/555 nm surface-
-reflectance ratio. Against Sentinel-3 OLCI chl-OC4ME (4 MODIS 8-day vs OLCI pairs, Feb 2022 and
-Feb 2023) it reads 1.2-1.4x high, so its "< 0.15 / < 0.25" classes cover far less than the classes of
-Houpert et al. (2016, Table 4; MODIS-Aqua L3 chl). Read the colours as proxy classes, comparable
-between these layers and between winters (same sensor, same algorithm, same edges), not as mg m-3.
-Clear water: NIR < 0.5 * green AND NIR > -0.5 * green. The second test drops over-corrected cloud-edge
-pixels (NIR/green -0.8 to -2.9) that the MODIS state QA flags and that otherwise land in the
-dark-purple class; it also drops 15-29 % of the QA-clear core pixels.
-Invalid pixels (cloud, cloud edge, land) are half-transparent light grey, so cloud gaps do not read
-as the dark-purple core over the dark satellite basemap (land turns grey too).
-Clear % below = MODIS state-QA clear ocean in the box 2.5-8.5E 40.5-44N (review/scenes/data,
-collections-v2/scout/raw/modis_rev and collections-v2/scout/data: the same scan).
-LION = mixed-layer depth at the LION mooring (42.04N 4.69E; SEANOE 10.17882/44411; our analysis,
-workflow/lion_mld_v2.txt).
+How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); green and yellow = more; orange and red = much more (near the coast, also murky river water). Grey = cloud or land. The colours are an uncalibrated index from the colour of the sea: compare winters with each other, not with measured chlorophyll.
+
+Method, sources and caveats: openeo-studio-scenarios, scenarios/nw-med-deep-winters/recent-winters/README.md
+
+MODIS-Aqua surface reflectance (MYD09A1 v6.1, NASA LP DAAC), via Microsoft Planetary Computer. LION mooring data: SEANOE, doi:10.17882/44411.
 """
 import math
 from datetime import date, timedelta
@@ -96,7 +56,7 @@ def aqua(first_start, last_start=None):
             spatial_extent=bounding_box,
             temporal_extent=[first_start, end.isoformat()],
             bands=["sur_refl_b02", "sur_refl_b03", "sur_refl_b04"],
-            properties={"id": condition("starts_with", "MYD09A1")},  # Aqua; see the docstring
+            properties={"id": condition("starts_with", "MYD09A1")},  # Aqua only: see the README
         )
     )
 
@@ -107,7 +67,7 @@ def blue_green_ratio(data):
     return array_create([if_(water, blue / green, -1.0)])
 
 
-# chl proxy class edges (uncalibrated, see above) and one colour per class: the same in every project.
+# chl proxy class edges (uncalibrated, see the README) and one colour per class: the same in every project.
 CHL_EDGES = [0.15, 0.25, 0.35, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 5.0]
 COLORS = [
     [64, 0, 112, 255],  # < 0.15
@@ -126,8 +86,7 @@ COLORS = [
 # The colour map works on the ratio: low chl is a high ratio.
 RATIO_EDGES = [1e6] + [ratio_for_chl(c) for c in CHL_EDGES] + [0.0]
 RATIO_COLORMAP = [[[RATIO_EDGES[i + 1], RATIO_EDGES[i]], color] for i, color in enumerate(COLORS)]
-# Invalid pixels (-1) in half-transparent grey. Not yet rendered on the backend: if the colour map
-# rejects it, delete this line (invalid pixels are then transparent, as in the deployed projects).
+# Invalid pixels (-1: cloud, cloud edge and land) in half-transparent grey.
 RATIO_COLORMAP = RATIO_COLORMAP + [[[-1.5, -0.5], [200, 200, 200, 140]]]
 
 
@@ -140,20 +99,20 @@ def chl_layer(start, name):
     add_graph_to_map(colored.save_result("PNG"), name)
 
 
-LEGEND = " (chl proxy, uncalibrated: purple < 0.15, blue < 0.25, red > 2; grey = cloud/land)"
+LEGEND = " (purple = least chlorophyll, red = most; grey = cloud or land)"
 
 OPEN_ON = 0
 LAYERS = [
-    ("2013-02-26", "2013 (bottom-reaching, LION ~2300 m), 26 Feb-5 Mar: largest envelope (93 % clear)"),
-    ("2018-02-26", "2018 (deep, LION 1500-1750 m), 26 Feb-5 Mar: largest patch (80 % clear)"),
-    ("2019-02-02", "2019 (moderate, LION ~500-1090 m), 2-9 Feb (99 % clear)"),
-    ("2023-02-10", "2023 (moderate, LION ~600-850 m), 10-17 Feb (99 % clear)"),
-    ("2022-02-26", "2022 (moderate, LION ~500-700 m), 26 Feb-5 Mar (100 % clear)"),
-    ("2021-01-25", "2021 (moderate, LION ~650-820 m), 25 Jan-1 Feb: small patch (95 % clear)"),
-    ("2026-03-06", "2026 (weak, LION ~450-600 m), 6-13 Mar: marginal patch (87 % clear)"),
-    ("2025-02-02", "2025 (weak, LION ~400-500 m), 2-9 Feb: no patch (100 % clear)"),
-    ("2024-02-10", "2024 (no convection, LION <= 300 m), 10-17 Feb (99 % clear)"),
-    ("2020-02-18", "2020 (no convection, LION <= 300 m), 18-25 Feb (100 % clear)"),
+    ("2013-02-26", "2013 (mixed to the seafloor, ~2300 m), 26 Feb-5 Mar"),
+    ("2018-02-26", "2018 (deep, 1500-1750 m), 26 Feb-5 Mar: cloud hides the eastern part"),
+    ("2019-02-02", "2019 (moderate, ~500-1090 m), 2-9 Feb"),
+    ("2023-02-10", "2023 (moderate, ~450-850 m), 10-17 Feb"),
+    ("2022-02-26", "2022 (moderate, ~350-700 m), 26 Feb-5 Mar"),
+    ("2021-01-25", "2021 (moderate, ~650-820 m), 25 Jan-1 Feb: small patch"),
+    ("2026-03-06", "2026 (weak, ~450-600 m), 6-13 Mar: hardly any patch"),
+    ("2025-02-02", "2025 (weak, ~400-500 m), 2-9 Feb: no patch"),
+    ("2024-02-10", "2024 (no convection, <= 300 m), 10-17 Feb: no patch"),
+    ("2020-02-18", "2020 (no convection, <= 300 m), 18-25 Feb: no patch"),
 ]
 for i, (start, name) in enumerate(LAYERS):
     chl_layer(start, name + (LEGEND if i == OPEN_ON else ""))

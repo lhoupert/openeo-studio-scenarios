@@ -9,6 +9,7 @@ references. The Studio project carries a short description; the scenario README 
 |---|---|---|---|
 | [ulysse-oil-spill-2018](scenarios/ulysse-oil-spill-2018/) | Oil spill after the Ulysse / CSL Virginia collision off Cap Corse, Oct 2018 | Sentinel-1 radar (x2), Sentinel-2 optical, radar dark-spot detection | [open](https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar) |
 | [north-water-polynya-2026](scenarios/north-water-polynya-2026/) | The North Water polynya and its ice arch, Jan-Jun 2026 | Sentinel-1 radar change, Landsat 9 temperature, Sentinel-2 true colour (x2) | [open](https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar) |
+| [nw-med-deep-winters](scenarios/nw-med-deep-winters/) | Winter deep convection in the Gulf of Lion and the bloom that follows, 2005-2026 | MODIS-Aqua 8-day chlorophyll proxy, four projects of 9-11 layers | [2013](https://studio.mpc.ds.io/editor/exp-nw-med-deep-convection-2013-modis-8-day-sequence), [compared](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-compared-modis-patch), [weeks](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-low-chl-weeks-modis), [recent](https://studio.mpc.ds.io/editor/exp-nw-med-recent-winters-2019-2026-vs-2013-and-2018-modis-patch) |
 
 ## What is in a scenario
 
@@ -24,6 +25,10 @@ references. The Studio project carries a short description; the scenario README 
 - `presenter-notes.md`: a 2-3 minute script for presenting the scenario (opening layer, what to show and
   say at each step).
 - `figures/`: the layers rendered tile by tile.
+
+A scenario told with several Studio projects (`nw-med-deep-winters`) has one subfolder per project, each with
+its own `studio_script.py`, `seed.js`, `run_config.json` and `README.md`; the shared story, method and
+references, the presenter notes and the figures sit in the scenario folder.
 
 ## Create or update a Studio project
 
@@ -63,6 +68,6 @@ The arguments for each scenario are its title and the values in its `run_config.
 
 ## Credits and licences
 
-Copernicus Sentinel data (modified), Landsat data courtesy of the U.S. Geological Survey, and Sentinel-1
-RTC processing by Catalyst (CC BY 4.0), all via Microsoft Planetary Computer; see each scenario for
-details. Developed with AI assistance (Claude Code).
+Copernicus Sentinel data (modified), Landsat data courtesy of the U.S. Geological Survey, MODIS data from
+NASA LP DAAC, and Sentinel-1 RTC processing by Catalyst (CC BY 4.0), all via Microsoft Planetary Computer;
+LION mooring data from SEANOE. See each scenario for details. Developed with AI assistance (Claude Code).
