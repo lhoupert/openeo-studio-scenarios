@@ -3,11 +3,11 @@ Exp - NW Med deep winters 2005-2018 compared MODIS patch
 
 In winters with deep convection, cold northerly winds mix the Gulf of Lion from the surface down to 1000 m or more, often to the seafloor. The mixing carries the surface algae (phytoplankton) down into the dark, so from space the mixed area looks like a patch of very low chlorophyll.
 
-This project compares that patch across every winter with known deep convection that the MODIS-Aqua satellite has seen (2005, 2006, 2009-2013 and 2018), plus 2007, a winter without deep convection. One satellite image per winter (the clearest view of 8 days), taken when the patch was largest, with the same colours everywhere. The map opens on 2013; open one layer at a time.
+This project compares that patch across every winter with known deep convection that the MODIS-Aqua satellite has seen (2005, 2006, 2009-2013 and 2018), plus 2007, a winter without deep convection. One satellite image per winter (8 days combined, little cloud), near the time the patch was largest, with the same colours everywhere; for 2013 it is the week mapped in the reference study. The map opens on 2013; open one layer at a time.
 
-What to look for: the patch is widest in 2005, 2006 and 2013, and absent in 2007. In 2018 the mixing was deep but covered a smaller area, and cloud hides the eastern part of the patch.
+What to look for: the patch is widest in 2005, 2006 and 2013, and absent in 2007. In 2018 the mixing was deep but covered about half the area of 2013 (published estimates), and cloud hides the eastern part of the patch.
 
-How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); green and yellow = more; orange and red = much more (near the coast, also murky river water). Grey = cloud or land. The colours are an uncalibrated index from the colour of the sea: compare winters with each other, not with measured chlorophyll.
+How to read the colours: purple and dark blue = very little chlorophyll (the mixed patch); lighter blue, green and yellow = more; orange and red = much more (near the coast, also murky river water). Grey = no reliable value: cloud, land, and some specks inside the patch. The colours are an uncalibrated index from the colour of the sea: compare winters with each other, not with measured chlorophyll.
 
 Method, sources and caveats: openeo-studio-scenarios, scenarios/nw-med-deep-winters/deep-winters-compared/README.md
 
@@ -99,7 +99,7 @@ def chl_layer(start, name):
     add_graph_to_map(colored.save_result("PNG"), name)
 
 
-LEGEND = " (purple = least chlorophyll, red = most; grey = cloud or land)"
+LEGEND = " (purple = least chlorophyll, red = most; grey = no reliable value: cloud, land)"
 
 OPEN_ON = 7
 LAYERS = [
@@ -108,10 +108,10 @@ LAYERS = [
     ("2007-02-18", "2007 (no deep convection), 18-25 Feb: no patch"),
     ("2009-02-18", "2009 (mixed to the seafloor), 18-25 Feb"),
     ("2010-02-18", "2010 (mixed to the seafloor), 18-25 Feb"),
-    ("2011-02-02", "2011 (mixed to the seafloor a month early), 2-9 Feb"),
+    ("2011-02-02", "2011 (mixed to the seafloor early, on 27 Jan), 2-9 Feb"),
     ("2012-02-18", "2012 (mixed to the seafloor), 18-25 Feb"),
-    ("2013-02-18", "2013 (mixed to the seafloor), 18-25 Feb: the week of the reference study"),
-    ("2018-02-26", "2018 (deep, smaller area), 26 Feb-5 Mar: cloud hides the eastern part"),
+    ("2013-02-18", "2013 (mixed to the seafloor), 18-25 Feb: the week mapped in the reference study"),
+    ("2018-02-26", "2018 (deep, smaller than 2013), 26 Feb-5 Mar: cloud hides the eastern part"),
 ]
 for i, (start, name) in enumerate(LAYERS):
     chl_layer(start, name + (LEGEND if i == OPEN_ON else ""))

@@ -5,7 +5,7 @@ In winters with deep convection, cold northerly winds mix the Gulf of Lion from 
 
 This map counts, for each spot of sea, in how many of seven 8-day satellite images (25 Jan-21 Mar) it was clear and inside that patch. One layer per winter with known deep convection (2005, 2006, 2009-2013 and 2018), plus 2007, a winter without it; the same dates and colours for every winter. The map opens on 2013; open one layer at a time.
 
-How to read the colours: dark purple = 5-7 weeks in the patch (the heart of the mixed area); purple = 4; blues = 1-3 (light blue = 1); no colour = never seen in the patch, or land.
+How to read the colours: dark purple = 5-7 weeks in the patch (the heart of the mixed area); purple = 4; blues = 1-3 (light blue = 1); no colour = never seen in the patch, or land. Blue far from the Gulf of Lion (for example east of Corsica and Sardinia) is naturally clear water, not the mixed patch: read the counts in the gulf and the Ligurian Sea.
 
 Read with care: a cloudy week counts as "not in the patch", so cloudy winters (2018) look smaller. The count mixes how large and how long-lived the patch was: in 2011 the sea mixed early and the patch had broken up by mid-February.
 
@@ -97,10 +97,10 @@ LAYERS = [
     (2007, "2007 (no deep convection), 25 Jan-21 Mar"),
     (2009, "2009 (mixed to the seafloor), 25 Jan-21 Mar"),
     (2010, "2010 (mixed to the seafloor), 25 Jan-21 Mar"),
-    (2011, "2011 (mixed to the seafloor a month early), 25 Jan-21 Mar"),
+    (2011, "2011 (mixed to the seafloor early, on 27 Jan), 25 Jan-21 Mar"),
     (2012, "2012 (mixed to the seafloor), 25 Jan-20 Mar"),
     (2013, "2013 (mixed to the seafloor), 25 Jan-21 Mar"),
-    (2018, "2018 (deep, smaller area), 25 Jan-21 Mar: cloudy weeks lower the count"),
+    (2018, "2018 (deep, smaller than 2013), 25 Jan-21 Mar: cloudy weeks lower the count"),
 ]
 for i, (year, name) in enumerate(LAYERS):
     low_chl_weeks(year, name + (LEGEND if i == OPEN_ON else ""))

@@ -41,8 +41,11 @@ Area with at least 3 weeks in the patch (production tiles at tile zoom 7): 2006 
 - **The count mixes size and duration.** 2011 mixed early (bottom at LION on 27 Jan, Houpert et al. 2016,
   Table 4) and its patch had broken up by 18 Feb, so it scores low; 2005 kept its patch until mid-March and
   2006 had one from mid-January.
-- The clear-water test also rejects some clear core pixels (see the scenario README), which lowers counts a
-  little everywhere.
+- The clear-water test also rejects some clear pixels, most of them in the darkest core (15-29 % of the clear
+  core pixels in a composite; see the scenario README), so counts in the core can be too low.
+- **Not every count is the patch.** The layer counts weeks below 0.25 anywhere: naturally clear water far from
+  the Gulf of Lion (for example east of Corsica and Sardinia) also scores 1-3 weeks, even in 2007. Read the
+  counts in the gulf and the Ligurian Sea.
 
 ## How it is made
 

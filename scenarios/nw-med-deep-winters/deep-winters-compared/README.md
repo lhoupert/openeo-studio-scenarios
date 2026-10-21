@@ -25,18 +25,18 @@ the share of the ocean in 2.5-8.5E 40.5-44N that the MODIS state QA flags as cle
 | # | Winter | Composite | Convection (source) | What you see | Proxy area | Clear |
 |---|---|---|---|---|---|---|
 | 1 | 2005 | 6-13 Mar | Deep, new deep water in March; no mooring yet (Smith et al. 2008) | The widest < 0.25 envelope of all winters 2000-2026 in our MODIS scan | 51,600 / 700 | 97 % |
-| 2 | 2006 | 26 Feb-5 Mar | Deep, 2000 m on 13 Mar (Smith et al. 2008) | Its widest envelope, in two lobes | 39,600 / 2,300 | 94 % |
+| 2 | 2006 | 26 Feb-5 Mar | Deep: an Argo float in the western Ligurian Sea (43.4N 7.8E) mixed to its 2000 m profile limit on 13 Mar (Smith et al. 2008) | Its widest envelope, in two lobes | 39,600 / 2,300 | 94 % |
 | 3 | 2007 | 18-25 Feb | None: gliders mixed to 400 m (Houpert et al. 2016) | No patch | 120 / 10 | 96 % |
 | 4 | 2009 | 18-25 Feb | Bottom at LION 12 Feb, main mixing ends 26 Feb (Table 4) | Its widest envelope, compact around LION | 18,100 / 1,200 | 99 % |
 | 5 | 2010 | 18-25 Feb | Bottom 10 Feb, ends 20 Feb (Table 4) | | 19,800 / 1,600 | 92 % |
-| 6 | 2011 | 2-9 Feb | Bottom 27 Jan, a month earlier than the other years; ends 5 Feb (Houpert et al. 2016) | Its widest envelope, cloud-free | 17,300 / 3,400 | 100 % |
+| 6 | 2011 | 2-9 Feb | Bottom 27 Jan, about two weeks before the other years (mixing passed 1200 m on 26 Dec 2010, a month earlier than usual; Houpert et al. 2016, p. 8150 and Table 4); ends 5 Feb | Its widest envelope, cloud-free | 17,300 / 3,400 | 100 % |
 | 7 | 2012 | 18-25 Feb | Seabed (2350 m) on 10 Feb (Durrieu de Madron et al. 2013); ends 23 Feb (Table 4) | | 25,600 / 2,400 | 99 % |
 | 8 | 2013 | 18-25 Feb | Bottom 13 Feb, ends 28 Feb (Table 4). **Opens here.** | The largest dark-purple core | 39,400 / 3,700 | 98 % |
 | 9 | 2018 | 26 Feb-5 Mar | At least 1800-1900 m, about half the area of the strong years (Margirier et al. 2020; Fourrier et al. 2022) | Its largest patch; the eastern half is under cloud (46 % grey) | 24,500 / 2,500 | 80 % |
 
 **Against the literature.** For 2009-2013 the proxy ranks the winters almost as Table 4 of Houpert et al.
-(2016) does, but its areas are 1.4-1.9x smaller below 0.25 and 4.6-14x smaller below 0.15, and the box is
-smaller than their domain (table in the [scenario README](../README.md)). For 2018, Margirier et al. (2020)
+(2016) does, but its areas are 1.4-1.9x smaller below 0.25 and 4.6-14x smaller below 0.15 (table in the
+[scenario README](../README.md); for 2009 and 2010 their weeks differ from the composites here). For 2018, Margirier et al. (2020)
 give 10,400-13,400 km² below 0.15 mg m⁻³ from Globcolor and ESA-CCI 8-day products. Compare the winters with
 each other, not with the published km².
 
