@@ -10,6 +10,9 @@ references. The Studio project carries a short description; the scenario README 
 | [ulysse-oil-spill-2018](scenarios/ulysse-oil-spill-2018/) | Oil spill after the Ulysse / CSL Virginia collision off Cap Corse, Oct 2018 | Sentinel-1 radar (x2), Sentinel-2 optical, radar dark-spot detection | [open](https://studio.mpc.ds.io/editor/exp-ulysse-csl-virginia-oil-spill-oct-2018-sentinel-1-radar) |
 | [north-water-polynya-2026](scenarios/north-water-polynya-2026/) | The North Water polynya and its ice arch, Mar-Jun 2026 | Sentinel-1 radar change, Landsat 9 temperature, Sentinel-2 true colour (x2) | [open](https://studio.mpc.ds.io/editor/exp-north-water-polynya-2026-sentinel-1-radar) |
 | [nw-med-deep-winters](scenarios/nw-med-deep-winters/) | Winter deep convection in the Gulf of Lion and the bloom that follows, 2005-2026 | MODIS-Aqua 8-day chlorophyll proxy, four projects of 9-11 layers | [2013](https://studio.mpc.ds.io/editor/exp-nw-med-deep-convection-2013-modis-8-day-sequence), [compared](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-compared-modis-patch), [weeks](https://studio.mpc.ds.io/editor/exp-nw-med-deep-winters-2005-2018-low-chl-weeks-modis), [recent](https://studio.mpc.ds.io/editor/exp-nw-med-recent-winters-2019-2026-vs-2013-and-2018-modis-patch) |
+| [shark-bay-seagrass-2011](scenarios/shark-bay-seagrass-2011/) | Seagrass lost in Shark Bay after the 2010-11 marine heatwave | Landsat 5 and 8 true colour, Landsat 7 temperature anomaly, 2010-2014 change | [open](https://studio.mpc.ds.io/editor/exp-shark-bay-seagrass-loss-2011-heatwave-landsat) |
+| [larsen-b-2022](scenarios/larsen-b-2022/) | Fast-ice breakout in the Larsen B embayment and the glacier retreat that followed, 2022-23 | Sentinel-2 true colour (x3), Sentinel-1 radar change | [open](https://studio.mpc.ds.io/editor/exp-larsen-b-2022-fast-ice-breakout-and-glacier-retreat) |
+| [everglades-irma-mangroves-2017](scenarios/everglades-irma-mangroves-2017/) | Mangroves killed by Hurricane Irma's surge on the lowest ground of the Everglades, 2017-19 | Landsat 8 greenness drop, 3DEP elevation, Sentinel-2 false colour, NAIP aerial photo | [open](https://studio.mpc.ds.io/editor/exp-everglades-mangroves-after-hurricane-irma-2017) |
 
 ## What is in a scenario
 
@@ -69,6 +72,7 @@ The arguments for each scenario are its title and the values in its `run_config.
 
 ## Credits and licences
 
-Copernicus Sentinel data (modified), Landsat data courtesy of the U.S. Geological Survey, MODIS data from
-NASA LP DAAC, and Sentinel-1 RTC processing by Catalyst (CC BY 4.0), all via Microsoft Planetary Computer;
+Copernicus Sentinel data (modified), Landsat data and 3DEP elevation courtesy of the U.S. Geological Survey,
+NAIP imagery courtesy of the USDA Farm Service Agency, MODIS data from NASA LP DAAC, and Sentinel-1 RTC
+processing by Catalyst (CC BY 4.0), all via Microsoft Planetary Computer;
 LION mooring data from SEANOE. See each scenario for details. Developed with AI assistance (Claude Code).
